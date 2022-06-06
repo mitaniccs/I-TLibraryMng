@@ -139,7 +139,7 @@ public class ReturnServlet extends HttpServlet {
 
 	}
 
-	// 資料返却確認
+	// 資料返却確認処理
 	private void returnConfilm(	HttpServletRequest request,
 									HttpServletResponse response,
 									HttpSession session,
