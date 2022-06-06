@@ -176,9 +176,11 @@ public class ReturnServlet extends HttpServlet {
 	{
 		// 返却した情報を設定
 		String action = request.getParameter("action");
+
 		String memberName = request.getParameter("name");
 		String detailTitle = request.getParameter("title");
 		String rentalDueDate = request.getParameter("rental_due_date");
+
 		con = Common.getConnection();
 		ReturnDAO dao = new ReturnDAO();
 //		ReturnBean returnBean = dao.findByReturn(con, memberName, detailTitle, rentalDueDate);
