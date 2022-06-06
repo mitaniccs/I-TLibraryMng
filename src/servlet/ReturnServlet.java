@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.ReturnBean;
 import dao.Common;
 import dao.DAOException;
 import dao.ReturnDAO;
@@ -32,19 +30,19 @@ public class ReturnServlet extends HttpServlet {
 		//	今後複数回使うオブジェクトの宣言/初期化
 		Connection con = null;
 		String action = request.getParameter("action");
-		MemberBean memberBean = (MemberBean) session.getAttribute("memberBean");
-		System.out.println("ReturnServletでのmemberBean: " + memberBean);
+//		MemberBean memberBean = (MemberBean) session.getAttribute("memberBean");
+//		System.out.println("ReturnServletでのmemberBean: " + memberBean);
 		String url = request.getRequestURI(); //リクエストアドレス
 		String context = request.getContextPath(); //プロジェクト名
 
 		try {
 			//	ログインチェック
-			if (memberBean == null) {
-				//	ログインしていなければログイン画面へ
-				request.setAttribute("errorMessage", "ログインをしてから再度アクセスをしてください。");
-				gotoPage(request, response, "/login.jsp");
-				return;
-			}
+//			if (memberBean == null) {
+//				//	ログインしていなければログイン画面へ
+//				request.setAttribute("errorMessage", "ログインをしてから再度アクセスをしてください。");
+//				gotoPage(request, response, "/login.jsp");
+//				return;
+//			}
 			//	以下はログインチェック済の場合
 			//	-> profileは取得できている
 
@@ -121,8 +119,8 @@ public class ReturnServlet extends HttpServlet {
 
 		if(action == null || action.length() ==0)
 		{
-			List<ReturnBean> returnList = dao.findReturn();
-			session.setAttribute("retrunList", returnList);
+//			List<ReturnBean> returnList = dao.findReturn();
+//			session.setAttribute("retrunList", returnList);
 			gotoPage(request, response, "/return.jsp");
 			return;
 		}
@@ -152,11 +150,11 @@ public class ReturnServlet extends HttpServlet {
 		int rentalDueDate = Integer.parseInt(request.getParameter("rental_due_date"));
 		con = Common.getConnection();
 		ReturnDAO dao = new ReturnDAO();
-		ReturnBean returnBean = dao.findByReturn(con, memberName, detailTitle, rentalDueDate);
+//		ReturnBean returnBean = dao.findByReturn(con, memberName, detailTitle, rentalDueDate);
 
 		//	資料確認画面に表示
 		session.setAttribute("message", "");
-		request.setAttribute("return", returnBean);
+//		request.setAttribute("return", returnBean);
 		gotoPage(request, response, "/returnConfirm.jsp");
 
 		if(action.equals("返却")) {
@@ -181,11 +179,11 @@ public class ReturnServlet extends HttpServlet {
 		int rentalDueDate = Integer.parseInt(request.getParameter("rental_due_date"));
 		con = Common.getConnection();
 		ReturnDAO dao = new ReturnDAO();
-		ReturnBean returnBean = dao.findByReturn(con, memberName, detailTitle, rentalDueDate);
+//		ReturnBean returnBean = dao.findByReturn(con, memberName, detailTitle, rentalDueDate);
 
 		//	返却完了画面に表示
 		session.setAttribute("message", "");
-		request.setAttribute("return", returnBean);
+//		request.setAttribute("return", returnBean);
 		gotoPage(request, response, "/returnDone.jsp");
 
 		if(action.equals("戻る")) {
@@ -205,8 +203,8 @@ public class ReturnServlet extends HttpServlet {
 
 		if(action == null || action.length() ==0)
 		{
-			List<ReturnBean> returnedList = dao.findReturnLog();
-			session.setAttribute("retrunedList", returnedList);
+//			List<ReturnBean> returnedList = dao.findReturnLog();
+//			session.setAttribute("retrunedList", returnedList);
 			gotoPage(request, response, "/returnedLog.jsp");
 			return;
 		}
@@ -228,7 +226,7 @@ public class ReturnServlet extends HttpServlet {
 		int memberId = Integer.parseInt(request.getParameter("member_Id"));
 		int detailId = Integer.parseInt(request.getParameter("detail_Id"));
 		ReturnDAO dao = new ReturnDAO();
-		ReturnBean returnBean = dao.findByReturnId(con, memberId, detailId);
+//		ReturnBean returnBean = dao.findByReturnId(con, memberId, detailId);
 		gotoPage(request, response, "/return.jsp");
 
 		if(action.equals("戻る")) {
@@ -247,7 +245,7 @@ public class ReturnServlet extends HttpServlet {
 		int memberId = Integer.parseInt(request.getParameter("member_Id"));
 		int detailId = Integer.parseInt(request.getParameter("detail_Id"));
 		ReturnDAO dao = new ReturnDAO();
-		ReturnBean returnBean = dao.findByReturnId(con, memberId, detailId);
+//		ReturnBean returnBean = dao.findByReturnId(con, memberId, detailId);
 		gotoPage(request, response, "/returnLog.jsp");
 
 		if(action.equals("戻る")) {
