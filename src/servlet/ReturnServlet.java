@@ -183,7 +183,7 @@ public class ReturnServlet extends HttpServlet {
 		ReturnDAO dao = new ReturnDAO();
 		ReturnBean returnBean = dao.findByReturn(con, memberName, detailTitle, rentalDueDate);
 
-		//	資料完了画面に表示
+		//	返却完了画面に表示
 		session.setAttribute("message", "");
 		request.setAttribute("return", returnBean);
 		gotoPage(request, response, "/returnDone.jsp");
