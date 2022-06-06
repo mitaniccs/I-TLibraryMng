@@ -37,6 +37,12 @@ public class ReturnBean {
 		this.title = title;
 	}
 
+	public ReturnBean(String name, String title, Date rental_due_date) {
+		this.name = name;
+		this.title = title;
+		this.rental_due_date = rental_due_date;
+	}
+
 	public int getId() {
 		return id;
 	}
