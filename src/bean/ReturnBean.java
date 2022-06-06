@@ -20,6 +20,10 @@ public class ReturnBean {
 
 	private String title;
 
+	public ReturnBean() {
+		super();
+	}
+
 	public ReturnBean(int id, int detail_Id, int member_Id, Date rental_date, Date rental_due_date, Date returned_date,
 			String name, String title) {
 		super();
@@ -103,6 +107,5 @@ public class ReturnBean {
 				+ rental_date + ", rental_due_date=" + rental_due_date + ", returned_date=" + returned_date + ", name="
 				+ name + ", title=" + title + "]";
 	}
-
 
 }
