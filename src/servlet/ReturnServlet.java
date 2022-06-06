@@ -145,9 +145,11 @@ public class ReturnServlet extends HttpServlet {
 	{
 		// 返却を確認する情報の取得
 		String action = request.getParameter("action");
+
 		String memberName = request.getParameter("name");
 		String detailTitle = request.getParameter("title");
-		int rentalDueDate = Integer.parseInt(request.getParameter("rental_due_date"));
+		String rentalDueDate = request.getParameter("rental_due_date");
+
 		con = Common.getConnection();
 		ReturnDAO dao = new ReturnDAO();
 //		ReturnBean returnBean = dao.findByReturn(con, memberName, detailTitle, rentalDueDate);
@@ -176,7 +178,7 @@ public class ReturnServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		String memberName = request.getParameter("name");
 		String detailTitle = request.getParameter("title");
-		int rentalDueDate = Integer.parseInt(request.getParameter("rental_due_date"));
+		String rentalDueDate = request.getParameter("rental_due_date");
 		con = Common.getConnection();
 		ReturnDAO dao = new ReturnDAO();
 //		ReturnBean returnBean = dao.findByReturn(con, memberName, detailTitle, rentalDueDate);
