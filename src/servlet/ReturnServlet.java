@@ -168,7 +168,7 @@ public class ReturnServlet extends HttpServlet {
 		}
 	}
 
-	// 資料返却完了
+	// 資料返却完了画面処理
 	private void returnDone(	HttpServletRequest request,
 										HttpServletResponse response,
 										HttpSession session,
