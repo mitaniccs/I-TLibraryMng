@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.ReturnBean;
 import dao.Common;
 import dao.DAOException;
 import dao.ReturnDAO;
@@ -119,8 +121,8 @@ public class ReturnServlet extends HttpServlet {
 
 		if(action == null || action.length() ==0)
 		{
-//			List<ReturnBean> returnList = dao.findReturn();
-//			session.setAttribute("retrunList", returnList);
+			List<ReturnBean> returnList = dao.findAll();
+			session.setAttribute("retrunList", returnList);
 			gotoPage(request, response, "/return.jsp");
 			return;
 		}
@@ -207,8 +209,8 @@ public class ReturnServlet extends HttpServlet {
 
 		if(action == null || action.length() ==0)
 		{
-//			List<ReturnBean> returnedList = dao.findReturnLog();
-//			session.setAttribute("retrunedList", returnedList);
+			List<ReturnBean> returnedList = dao.findAllResult();
+			session.setAttribute("retrunedList", returnedList);
 			gotoPage(request, response, "/returnedLog.jsp");
 			return;
 		}
