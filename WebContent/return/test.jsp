@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="/I-TLibraryMng/ReturnServlet">会員リスト</a>
+<a href="/I-TLibraryMng/ReturnServlet/result">会員リスト</a>
 </body>
 </html>
