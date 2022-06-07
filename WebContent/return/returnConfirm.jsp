@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>資料返却確認画面</title>
 <style>span{margin-right: 5px;}</style>
+<link rel=”stylesheet” type=”text/css” href=”return.css”>
 </head>
 <body>
 <table >

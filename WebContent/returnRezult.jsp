@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>資料返却履歴</title>
+<link rel=”stylesheet” type=”text/css” href=”return.css”>
 </head>
 
 <body>
