@@ -33,7 +33,8 @@ public class ReturnServlet extends HttpServlet {
 
 		//	今後複数回使うオブジェクトの宣言/初期化
 		Connection con = null;
-		String action = request.getParameter("action");
+		//String action = request.getParameter("action");
+		String url = request.getRequestURI();
 //		MemberBean memberBean = (MemberBean) session.getAttribute("memberBean");
 //		System.out.println("ReturnServletでのmemberBean: " + memberBean);
 
@@ -49,44 +50,37 @@ public class ReturnServlet extends HttpServlet {
 			//	-> profileは取得できている
 
 			// 会員
-
-			if(action.equals("資料返却画面"))
+			System.out.println("tryに入ったよ");
+			if(url.equals("資料返却画面"))
 			{
 				showReturn(request, response, session, con) ;
-				if(action.equals("検索")) {
+				if(url.equals("検索")) {
 				searchReturn(request, response, session, con) ;
 				}
 				return;
 			}
 
-			if(action.equals("資料返却確認画面"))
+			if(url.equals("資料返却確認画面"))
 			{
 				returnConfilm(request, response, session, con) ;
 				return;
 			}
 
-			if(action.equals("資料返却完了画面"))
+			if(url.equals("資料返却完了画面"))
 			{
 				returnDone(request, response, session, con) ;
 				return;
 			}
 
-			if (action.equals("result"))
+			if (url.equals("/result"))
 			{
+				System.out.println("resultに入った");
 				returnedLog(request, response, session, con);
-				if(action.equals("検索")) {
-				searchLog(request, response, session, con);
+				if(url.equals("検索")) {
+					searchLog(request, response, session, con);
 				}
 				return;
 			}
-
-			else {
-				request.setAttribute("errorMessage", "不正な操作です。(action=" + action + ")");
-				gotoPage(request, response, "/login.jsp");
-				return;
-
-			}
-
 
 		} catch (DAOException e) {
 			request.setAttribute("errorMessage", "システムエラー発生。ログを確認してください！");
