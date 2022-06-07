@@ -26,10 +26,10 @@
 
 			<c:forEach items="${returnedList}" var="detail">
 				<td>${detail.member_Id }</td>
-				<td>${detail.detail_Id }"</td>
+				<td>${detail.detail_Id }</td>
 				<td>${detail.rental_date}</td>
-				<td>${detail.rental_due_date }"</td>
-				<td>${detail.returned_date}"</td>
+				<td>${detail.rental_due_date }</td>
+				<td>${detail.returned_date}</td>
 			</c:forEach>
 		</table>
 	</div>
