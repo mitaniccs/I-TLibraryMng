@@ -13,12 +13,12 @@ import bean.ReturnBean;
 public class ReturnDAO {
 
 
-	private Connection getConnection() throws DAOException{
+	private static Connection getConnection() throws DAOException{
 		System.out.println("getConnection()メソッド入場");
 		Connection conn = null;
 
 		try {
-			System.out.println("ReturnBeanのgetConnection()メソッド入場");
+			System.out.println("getConnection()メソッド入場");
 			//		JDBCドライバの登録
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			//		URL、ユーザー名、パスワードの設定
@@ -29,18 +29,17 @@ public class ReturnDAO {
 			//		データベースへの接続
 			conn = DriverManager.getConnection(url, user, pass);
 			System.out.println(conn);
-			System.out.println("ReturnBeanのgetConnection()メソッド退場");
+			System.out.println("getConnection()メソッド退場");
 		} catch(Exception e) {
 			throw new DAOException("接続に失敗しました。");
 		}
-		System.out.println("getConnectionメソッド退場");
 		return conn;
 	}
 
 	//資料返却画面
 	//	全件検索
-	public List<ReturnBean> findAll() throws DAOException{
-		System.out.println("bookList()メソッド入場");
+	public static List<ReturnBean> findAll() throws DAOException{
+		System.out.println("資料返却画面メソッド()メソッド入場");
 
 		List<ReturnBean> list = new ArrayList<>();
 		Connection conn = null; //db接続
@@ -48,22 +47,29 @@ public class ReturnDAO {
 		ResultSet rs = null; //結果セット
 		try {
 			conn = getConnection(); //db接続Connectionリターン
-
+			System.out.println("findAllメソッド内　getConnection()成功");
 			String sql =
-					"select detail_id, member_id, rental_date, rental_due_date, "
-					+ "from rentalTbl order by rental_due_date DESC";
+					"select * from rentalTbl ";
 			pstmt = conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			while(rs.next()) { //1レコード読み込み //get資料型（"フィールド名")
-				int detail_Id = rs.getInt("detai_id");
+				int id = rs.getInt("id");
+				int detail_Id = rs.getInt("detail_id");
 				int member_Id = rs.getInt("member_id");
-				Date rental_date = rs.getDate("rental_date");
-				Date rental_due_date = rs.getDate("rental_due_date");
+//				Date rental_date = rs.getDate("rental_date");
+//				Date rental_due_date = rs.getDate("rental_due_date");
 
 
-				ReturnBean returnBean = new ReturnBean(detail_Id, member_Id, rental_date, rental_due_date);
+//				ReturnBean returnBean =
+//						new ReturnBean(detail_Id, member_Id, rental_date, rental_due_date);
+				//以下２行確認用
+				ReturnBean returnBean =
+						new ReturnBean(detail_Id, member_Id);
+
+
 				System.out.println(returnBean);
 				list.add(returnBean); //リストに追加
+				System.out.println("list = " + list);
 			}
 		} catch (Exception e1) {
 			e1.printStackTrace();

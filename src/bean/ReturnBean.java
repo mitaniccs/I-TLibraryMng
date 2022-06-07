@@ -62,6 +62,13 @@ public class ReturnBean {
 		this.returned_date = returned_date;
 	}
 
+	public ReturnBean(int detail_Id, int member_Id) {
+		// TODO 自動生成されたコンストラクター・スタブ
+		super();
+		this.member_Id = member_Id;
+		this.detail_Id = detail_Id;
+	}
+
 	public int getId() {
 		return id;
 	}
