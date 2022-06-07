@@ -71,7 +71,7 @@ public class ReturnServlet extends HttpServlet {
 				return;
 			}
 
-			if (action.equals("資料返却履歴画面"))
+			if (action.equals("資料返却履歴"))
 			{
 				returnedLog(request, response, session, con);
 				if(action.equals("検索")) {
