@@ -19,7 +19,7 @@ import dao.DAOException;
 import dao.MemberDAO;
 import dao.ReturnDAO;
 
-@WebServlet("/ReturnServlet")
+@WebServlet("/ReturnServlet/*")
 public class ReturnServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
