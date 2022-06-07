@@ -59,7 +59,7 @@ public class ReturnDAO {
 				int detail_Id = rs.getInt("detai_id");
 				int member_Id = rs.getInt("member_id");
 				Date rental_date = rs.getDate("rental_date");
-				Date rental_due_date =rs.getDate("rental_due_date");
+				Date rental_due_date = rs.getDate("rental_due_date");
 
 
 				ReturnBean returnBean = new ReturnBean(detail_Id, member_Id, rental_date, rental_due_date);
@@ -91,19 +91,13 @@ public class ReturnDAO {
 				throw new DAOException("Connectionオブジェクトの開放に失敗しました。");
 			}
 		}
-		System.out.println("bookList()メソッド退場");
+		System.out.println("list()メソッド退場");
 		return list; //リストをリターン
 	}
 
 
 
-
-
-
-
-
-
-	//	図書情報更新
+	//	資料情報更新
 	public void update(ReturnBean returnBean) throws DAOException{
 		System.out.println("update()メソッド入場");
 		Connection conn = null;
@@ -112,10 +106,9 @@ public class ReturnDAO {
 			if(conn == null)
 				conn = getConnection(); //db接続Connectionリターン
 //TODO sql文更新
+//			idは資料返却画面の返却ボタンが押された時にゲットメソッドで持ってくる
 			String sql
-			="update bookstbl set title=?, author=?, "
-					+ "content=?, price=?, amount=?  "
-					+ "where id=?";
+			="update rentalTbl set returned_date=? where id=";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setDate(1, returnBean.getReturned_date());
 			pstmt.executeUpdate(); //レコード修正
@@ -139,6 +132,7 @@ public class ReturnDAO {
 		System.out.println("update()メソッド退場");
 	}
 
+//	資料返却履歴画面
 	public List<ReturnBean> findAllResult() throws DAOException{
 		System.out.println("bookList()メソッド入場");
 
@@ -149,24 +143,21 @@ public class ReturnDAO {
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 
-//TODO sql文更新
 			String sql =
-					"select id, title, author, content, price,"
-					+ "amount from bookstbl order by id DESC";
+					"select detail_id, member_id, rental_date, rental_due_date, returned_date"
+					+ "from rentalTbl order by rental_due_date DESC";
 			pstmt = conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
-			while(rs.next()) { //1レコード読み込み
-				int id = rs.getInt("id"); //get資料型（"フィールド名")
-				int detail_Id = rs.getInt("detai_Id");
-				int member_Id = rs.getInt("member_Id");
+			while(rs.next()) { //1レコード読み込み //get資料型（"フィールド名")
+				int detail_Id = rs.getInt("detai_id");
+				int member_Id = rs.getInt("member_id");
 				Date rental_date = rs.getDate("rental_date");
-				Date rental_due_date =rs.getDate("rental_due_date");
+				Date rental_due_date = rs.getDate("rental_due_date");
 				Date returned_date = rs.getDate("returned_date");
-				String name = rs.getString("name");
-				String title = rs.getString("title");
 
-				ReturnBean returnBean = new ReturnBean(id, detail_Id, member_Id,
-						rental_date, rental_due_date, returned_date, name, title);
+
+				ReturnBean returnBean = new ReturnBean(detail_Id, member_Id, rental_date,
+						rental_due_date, returned_date);
 				System.out.println(returnBean);
 				resultList.add(returnBean); //リストに追加
 			}
