@@ -108,7 +108,7 @@ public class ReturnServlet extends HttpServlet {
 		}
 	}
 
-	// 資料返却画面のリストを表示
+	// 資料返却のリストを表示
 	private void showReturn(	HttpServletRequest request,
 								HttpServletResponse response,
 								HttpSession session,
