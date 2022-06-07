@@ -49,7 +49,6 @@ public class ReturnDAO {
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 
-
 			String sql =
 					"select detail_id, member_id, rental_date, rental_due_date, "
 					+ "from rentalTbl order by rental_due_date DESC";
@@ -96,7 +95,6 @@ public class ReturnDAO {
 	}
 
 
-
 	//	資料情報更新
 	public void update(ReturnBean returnBean) throws DAOException{
 		System.out.println("update()メソッド入場");
@@ -105,10 +103,10 @@ public class ReturnDAO {
 		try {
 			if(conn == null)
 				conn = getConnection(); //db接続Connectionリターン
-//TODO sql文更新
+
 //			idは資料返却画面の返却ボタンが押された時にゲットメソッドで持ってくる
 			String sql
-			="update rentalTbl set returned_date=? where id=";
+			="update rentalTbl set returned_date=? where id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setDate(1, returnBean.getReturned_date());
 			pstmt.executeUpdate(); //レコード修正

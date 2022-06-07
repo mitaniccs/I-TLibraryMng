@@ -30,6 +30,7 @@ public class BookDAO {
 		System.out.println("getConnection()メソッド退場");
 		return conn;
 	}
+
 	public String findTitle(String detail_Id) throws DAOException{
 		System.out.println("fiindTitle()メソッド入場");
 		Connection conn = null; //db接続
@@ -70,6 +71,5 @@ public class BookDAO {
 				throw new DAOException("Connectionオブジェクトの開放に失敗しました。");
 			}
 		}
-
 	}
 }
