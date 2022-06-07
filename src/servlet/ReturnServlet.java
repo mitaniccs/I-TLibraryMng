@@ -45,7 +45,10 @@ public class ReturnServlet extends HttpServlet {
 //				gotoPage(request, response, "/login.jsp");
 //				return;
 //			}
-			//	以下はログインチェック済の場合 -> profileは取得できている
+			//	以下はログインチェック済の場合
+			//	-> profileは取得できている
+
+			// 会員
 
 			if(action.equals("資料返却画面"))
 			{
