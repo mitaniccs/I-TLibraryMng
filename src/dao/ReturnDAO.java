@@ -37,6 +37,7 @@ public class ReturnDAO {
 		return conn;
 	}
 
+	//資料返却画面
 	//	全件検索
 	public List<ReturnBean> findAll() throws DAOException{
 		System.out.println("bookList()メソッド入場");
@@ -48,24 +49,20 @@ public class ReturnDAO {
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 
-//TODO sql文更新
+
 			String sql =
-					"select id, title, author, content, price,"
-					+ "amount from bookstbl order by id DESC";
+					"select detail_id, member_id, rental_date, rental_due_date, "
+					+ "from rentalTbl order by rental_due_date DESC";
 			pstmt = conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
-			while(rs.next()) { //1レコード読み込み
-				int id = rs.getInt("id"); //get資料型（"フィールド名")
-				int detail_Id = rs.getInt("detai_Id");
-				int member_Id = rs.getInt("member_Id");
+			while(rs.next()) { //1レコード読み込み //get資料型（"フィールド名")
+				int detail_Id = rs.getInt("detai_id");
+				int member_Id = rs.getInt("member_id");
 				Date rental_date = rs.getDate("rental_date");
 				Date rental_due_date =rs.getDate("rental_due_date");
-				Date returned_date = rs.getDate("returned_date");
-				String name = rs.getString("name");
-				String title = rs.getString("title");
 
-				ReturnBean returnBean = new ReturnBean(id, detail_Id, member_Id,
-						rental_date, rental_due_date, returned_date, name, title);
+
+				ReturnBean returnBean = new ReturnBean(detail_Id, member_Id, rental_date, rental_due_date);
 				System.out.println(returnBean);
 				list.add(returnBean); //リストに追加
 			}
@@ -97,6 +94,13 @@ public class ReturnDAO {
 		System.out.println("bookList()メソッド退場");
 		return list; //リストをリターン
 	}
+
+
+
+
+
+
+
 
 
 	//	図書情報更新
