@@ -16,7 +16,7 @@ public class Common {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// URL、ユーザ名、パスワードの設定
-			String url = "jdbc:mysql://localhost:3306/articleDB	";
+			String url = "jdbc:mysql://localhost:3306/librarydb";
 			String user = "user";
 			String pass = "user";
 

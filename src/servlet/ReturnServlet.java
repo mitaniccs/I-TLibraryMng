@@ -214,14 +214,11 @@ public class ReturnServlet extends HttpServlet {
 //		String mode = request.getParameter("mode");
 		ReturnDAO dao = new ReturnDAO();
 
-//		if(action == null || action.length() ==0)
-//		{
 			List<ReturnBean> returnedList = dao.findAllResult();
 			System.out.println(returnedList);
 			session.setAttribute("returnedList", returnedList);
 			gotoPage(request, response, "/return/returnRezult.jsp");
 			return;
-//		}
 
 //		else if(action.equals("戻る")) {
 //			gotoPage(request, response, "/../../WebContent/menu.jsp");
