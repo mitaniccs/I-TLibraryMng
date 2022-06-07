@@ -222,7 +222,7 @@ public class ReturnServlet extends HttpServlet {
 		{
 			List<ReturnBean> returnedList = dao.findAllResult();
 			session.setAttribute("retrunedList", returnedList);
-			gotoPage(request, response, "/return/returnedLog.jsp");
+			gotoPage(request, response, "/return/returnRezult.jsp");
 			return;
 		}
 
