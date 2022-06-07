@@ -12,6 +12,7 @@ import bean.ReturnBean;
 
 public class ReturnDAO {
 
+
 	private Connection getConnection() throws DAOException{
 		System.out.println("getConnection()メソッド入場");
 		Connection conn = null;
