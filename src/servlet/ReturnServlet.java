@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.ReturnBean;
+import dao.BookDAO;
 import dao.Common;
 import dao.DAOException;
+import dao.MemberDAO;
 import dao.ReturnDAO;
 
 @WebServlet("/ReturnServlet")
@@ -34,8 +36,6 @@ public class ReturnServlet extends HttpServlet {
 		String action = request.getParameter("action");
 //		MemberBean memberBean = (MemberBean) session.getAttribute("memberBean");
 //		System.out.println("ReturnServletでのmemberBean: " + memberBean);
-		String url = request.getRequestURI(); //リクエストアドレス
-		String context = request.getContextPath(); //プロジェクト名
 
 		try {
 			//	ログインチェック
@@ -123,17 +123,17 @@ public class ReturnServlet extends HttpServlet {
 		{
 			List<ReturnBean> returnList = dao.findAll();
 			session.setAttribute("retrunList", returnList);
-			gotoPage(request, response, "/return.jsp");
+			gotoPage(request, response, "/return/return.jsp");
 			return;
 		}
 
 		else if(action.equals("返却")) {
-			gotoPage(request, response, "/returnConfilm.jsp");
+			gotoPage(request, response, "/return/returnConfilm.jsp");
 			return;
 		}
 
 		else if(action.equals("戻る")) {
-			gotoPage(request, response, "/menu.jsp");
+			gotoPage(request, response, "/../../WebContent/menu.jsp");
 			return;
 		}
 
@@ -153,20 +153,29 @@ public class ReturnServlet extends HttpServlet {
 		String rentalDueDate = request.getParameter("rental_due_date");
 
 		con = Common.getConnection();
+		ReturnDAO returnDao = new ReturnDAO();
+		BookDAO bookDao = new BookDAO();
+		MemberDAO memberDao = new MemberDAO();
 		ReturnDAO dao = new ReturnDAO();
-//		ReturnBean returnBean = dao.findByReturn(con, memberName, detailTitle, rentalDueDate);
+
+//		ReturnBean returnBean = dao.findAll(con, rentalDueDate);
+
+		// セッションに格納
+		session.setAttribute("name", memberName);
+		session.setAttribute("title", detailTitle);
+		session.setAttribute("rental_due_date", rentalDueDate);
 
 		//	資料確認画面に表示
 		session.setAttribute("message", "");
 //		request.setAttribute("return", returnBean);
-		gotoPage(request, response, "/returnConfirm.jsp");
+		gotoPage(request, response, "/return/returnConfirm.jsp");
 
 		if(action.equals("返却")) {
-			gotoPage(request, response, "/returnDone.jsp");
+			gotoPage(request, response, "/return/returnDone.jsp");
 		}
 
 		if(action.equals("戻る")) {
-			gotoPage(request, response, "/return.jsp");
+			gotoPage(request, response, "/return/return.jsp");
 		}
 	}
 
@@ -184,16 +193,18 @@ public class ReturnServlet extends HttpServlet {
 		String rentalDueDate = request.getParameter("rental_due_date");
 
 		con = Common.getConnection();
-		ReturnDAO dao = new ReturnDAO();
+//		ReturnDAO returnDao = new ReturnDAO();
+//		BookDAO bookDao = new BookDAO();
+//		MemberDAO memberDao = new MemberDAO();
 //		ReturnBean returnBean = dao.findByReturn(con, memberName, detailTitle, rentalDueDate);
 
 		//	返却完了画面に表示
 		session.setAttribute("message", "");
 //		request.setAttribute("return", returnBean);
-		gotoPage(request, response, "/returnDone.jsp");
+		gotoPage(request, response, "/return/returnDone.jsp");
 
 		if(action.equals("戻る")) {
-			gotoPage(request, response, "/return.jsp");
+			gotoPage(request, response, "/return/return.jsp");
 		}
 	}
 
@@ -211,12 +222,12 @@ public class ReturnServlet extends HttpServlet {
 		{
 			List<ReturnBean> returnedList = dao.findAllResult();
 			session.setAttribute("retrunedList", returnedList);
-			gotoPage(request, response, "/returnedLog.jsp");
+			gotoPage(request, response, "/return/returnedLog.jsp");
 			return;
 		}
 
 		else if(action.equals("戻る")) {
-			gotoPage(request, response, "/menu.jsp");
+			gotoPage(request, response, "/../../WebContent/menu.jsp");
 			return;
 		}
 	}
@@ -233,10 +244,10 @@ public class ReturnServlet extends HttpServlet {
 		int detailId = Integer.parseInt(request.getParameter("detail_Id"));
 		ReturnDAO dao = new ReturnDAO();
 //		ReturnBean returnBean = dao.findByReturnId(con, memberId, detailId);
-		gotoPage(request, response, "/return.jsp");
+		gotoPage(request, response, "/return/return.jsp");
 
 		if(action.equals("戻る")) {
-			gotoPage(request, response, "/menu.jsp");
+			gotoPage(request, response, "/../../WebContent/menu.jsp");
 		}
 	}
 
@@ -251,11 +262,12 @@ public class ReturnServlet extends HttpServlet {
 		int memberId = Integer.parseInt(request.getParameter("member_Id"));
 		int detailId = Integer.parseInt(request.getParameter("detail_Id"));
 		ReturnDAO dao = new ReturnDAO();
-//		ReturnBean returnBean = dao.findByReturnId(con, memberId, detailId);
-		gotoPage(request, response, "/returnLog.jsp");
+//		ReturnBean returnBean = dao.findAllResult(con, memberId, detailId);
+		String page = "/return/returnLog.jsp";
+		gotoPage(request, response, page);
 
 		if(action.equals("戻る")) {
-			gotoPage(request, response, "/menu.jsp");
+			gotoPage(request, response, "/../../WebContent/menu.jsp");
 		}
 	}
 
