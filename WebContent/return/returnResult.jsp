@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<style>span{margin-right: 5px;} background:#cccccc</style>
 <title>資料返却履歴</title>
 <link rel=”stylesheet” type=”text/css” href=”return.css”>
 </head>
 
 <body>
-	<div align="center">
+	<div align="center" style="background:#cccccc">
 		<h2>資料返却履歴</h2>
 
 
@@ -25,11 +26,13 @@
 			</tr>
 
 			<c:forEach items="${returnedList}" var="detail">
+			<tr>
 				<td>${detail.member_Id }</td>
 				<td>${detail.detail_Id }</td>
 				<td>${detail.rental_date}</td>
 				<td>${detail.rental_due_date }</td>
 				<td>${detail.returned_date}</td>
+			</tr>
 			</c:forEach>
 		</table>
 	</div>

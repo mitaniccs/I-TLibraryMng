@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style>span{margin-right: 5px;}</style>
 <title>Insert title here</title>
 </head>
 <body>

@@ -62,7 +62,7 @@ public class ReturnServlet extends HttpServlet {
 
 				System.out.println("return");
 				List<ReturnBean> findAll = ReturnDAO.findAll();
-				request.setAttribute("memberList", findAll);
+				request.setAttribute("rentalList", findAll);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
 				System.out.println("return処理終了");
@@ -84,8 +84,16 @@ public class ReturnServlet extends HttpServlet {
 
 			if(action.equals("result"))
 			{
-				System.out.println("result渡せた");
-				returnedLog(request, response, session, con);
+//				System.out.println("result渡せた");
+//				returnedLog(request, response, session, con);
+//				return;
+
+				System.out.println("result入った");
+				List<ReturnBean> findAllResult = ReturnDAO.findAllResult();
+				request.setAttribute("returnedList", findAllResult);
+				String page = "/return/returnResult.jsp";
+				gotoPage(request, response, page);
+				System.out.println("return処理終了");
 				return;
 			}
 			//資料返却画面上での検索

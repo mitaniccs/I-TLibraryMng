@@ -56,15 +56,15 @@ public class ReturnDAO {
 				int id = rs.getInt("id");
 				int detail_Id = rs.getInt("detail_id");
 				int member_Id = rs.getInt("member_id");
-//				Date rental_date = rs.getDate("rental_date");
-//				Date rental_due_date = rs.getDate("rental_due_date");
+				Date rental_date = rs.getDate("rental_date");
+				Date rental_due_date = rs.getDate("rental_due_date");
 
 
-//				ReturnBean returnBean =
-//						new ReturnBean(detail_Id, member_Id, rental_date, rental_due_date);
-				//以下２行確認用
 				ReturnBean returnBean =
-						new ReturnBean(detail_Id, member_Id);
+						new ReturnBean(detail_Id, member_Id, rental_date, rental_due_date);
+				//以下２行確認用
+//				ReturnBean returnBean =
+//						new ReturnBean(detail_Id, member_Id);
 
 
 				System.out.println(returnBean);
@@ -137,7 +137,7 @@ public class ReturnDAO {
 	}
 
 //	資料返却履歴画面
-	public List<ReturnBean> findAllResult() throws DAOException{
+	public static List<ReturnBean> findAllResult() throws DAOException{
 		System.out.println("bookList()メソッド入場");
 
 		List<ReturnBean> resultList = new ArrayList<>();
@@ -148,12 +148,11 @@ public class ReturnDAO {
 			conn = getConnection(); //db接続Connectionリターン
 
 			String sql =
-					"select detail_id, member_id, rental_date, rental_due_date, returned_date"
-					+ "from rentalTbl order by rental_due_date DESC";
+					"select * from rentalTbl ";
 			pstmt = conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			while(rs.next()) { //1レコード読み込み //get資料型（"フィールド名")
-				int detail_Id = rs.getInt("detai_id");
+				int detail_Id = rs.getInt("detail_id");
 				int member_Id = rs.getInt("member_id");
 				Date rental_date = rs.getDate("rental_date");
 				Date rental_due_date = rs.getDate("rental_due_date");
