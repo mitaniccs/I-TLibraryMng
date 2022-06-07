@@ -34,7 +34,8 @@ public class ReturnServlet extends HttpServlet {
 		//	今後複数回使うオブジェクトの宣言/初期化
 		Connection con = null;
 		//String action = request.getParameter("action");
-		String url = request.getRequestURI();
+//		String url = request.getRequestURI();
+		String action = request.getParameter("action");
 //		MemberBean memberBean = (MemberBean) session.getAttribute("memberBean");
 //		System.out.println("ReturnServletでのmemberBean: " + memberBean);
 
@@ -51,32 +52,32 @@ public class ReturnServlet extends HttpServlet {
 
 			// 会員
 			System.out.println("tryに入ったよ");
-			if(url.equals("資料返却画面"))
-			{
-				showReturn(request, response, session, con) ;
-				if(url.equals("検索")) {
-				searchReturn(request, response, session, con) ;
-				}
-				return;
-			}
+//			if(url.equals("資料返却画面"))
+//			{
+//				showReturn(request, response, session, con) ;
+//				if(url.equals("検索")) {
+//				searchReturn(request, response, session, con) ;
+//				}
+//				return;
+//			}
+//
+//			if(url.equals("資料返却確認画面"))
+//			{
+//				returnConfilm(request, response, session, con) ;
+//				return;
+//			}
+//
+//			if(url.equals("資料返却完了画面"))
+//			{
+//				returnDone(request, response, session, con) ;
+//				return;
+//			}
 
-			if(url.equals("資料返却確認画面"))
-			{
-				returnConfilm(request, response, session, con) ;
-				return;
-			}
-
-			if(url.equals("資料返却完了画面"))
-			{
-				returnDone(request, response, session, con) ;
-				return;
-			}
-
-			if (url.equals("/result"))
+			if (action.equals("result"))
 			{
 				System.out.println("resultに入った");
 				returnedLog(request, response, session, con);
-				if(url.equals("検索")) {
+				if(action.equals("検索")) {
 					searchLog(request, response, session, con);
 				}
 				return;
@@ -100,6 +101,7 @@ public class ReturnServlet extends HttpServlet {
 				gotoPage(request, response, "/Error.jsp");
 			}
 		}
+		System.out.println("try終わったよ");
 	}
 
 	// 資料返却のリストを表示
@@ -209,22 +211,22 @@ public class ReturnServlet extends HttpServlet {
 								Connection con) throws DAOException, Exception
 	{
 		request.setCharacterEncoding("UTF-8");
-		String action = request.getParameter("action");
+//		String mode = request.getParameter("mode");
 		ReturnDAO dao = new ReturnDAO();
 
-		if(action == null || action.length() ==0)
-		{
+//		if(action == null || action.length() ==0)
+//		{
 			List<ReturnBean> returnedList = dao.findAllResult();
 			System.out.println(returnedList);
 			session.setAttribute("returnedList", returnedList);
 			gotoPage(request, response, "/return/returnRezult.jsp");
 			return;
-		}
+//		}
 
-		else if(action.equals("戻る")) {
-			gotoPage(request, response, "/../../WebContent/menu.jsp");
-			return;
-		}
+//		else if(action.equals("戻る")) {
+//			gotoPage(request, response, "/../../WebContent/menu.jsp");
+//			return;
+//		}
 	}
 
 	// 資料返却画面検索
