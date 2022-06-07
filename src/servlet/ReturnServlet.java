@@ -52,39 +52,64 @@ public class ReturnServlet extends HttpServlet {
 
 			// 会員
 			System.out.println("tryに入ったよ");
-//			if(url.equals("資料返却画面"))
-//			{
-//				showReturn(request, response, session, con) ;
-//				if(url.equals("検索")) {
-//				searchReturn(request, response, session, con) ;
-//				}
-//				return;
-//			}
-//
-//			if(url.equals("資料返却確認画面"))
-//			{
-//				returnConfilm(request, response, session, con) ;
-//				return;
-//			}
-//
-//			if(url.equals("資料返却完了画面"))
-//			{
-//				returnDone(request, response, session, con) ;
-//				return;
-//			}
-
-			if (action.equals("result"))
+			ReturnDAO returnDAO = new ReturnDAO();
+			if(action.equals("returns"))
 			{
-				System.out.println("resultに入った");
-				returnedLog(request, response, session, con);
-				if(action.equals("検索")) {
-					searchLog(request, response, session, con);
-				}
+				//				竹内君が書いたやつ
+//				showReturn(request, response, session, con) ;
+//				return;
+//---------------------------------------------------
+
+				System.out.println("return");
+				List<ReturnBean> findAll = ReturnDAO.findAll();
+				request.setAttribute("memberList", findAll);
+				String page = "/return/return.jsp";
+				gotoPage(request, response, page);
+				System.out.println("return処理終了");
+				return;
+
+			}
+
+			if(action.equals("confirm"))
+			{
+				returnConfilm(request, response, session, con) ;
 				return;
 			}
 
+			if(action.equals("done"))
+			{
+				returnDone(request, response, session, con) ;
+				return;
+			}
+
+			if(action.equals("result"))
+			{
+				System.out.println("result渡せた");
+				returnedLog(request, response, session, con);
+				return;
+			}
+			//資料返却画面上での検索
+			if(action.equals("search1")) {
+				returnedLog(request, response, session, con);
+				return;
+			}
+			//資料返却履歴画面での検索
+			if(action.equals("search2")) {
+				returnedLog(request, response, session, con);
+				return;
+			}
+			//戻る画面に遷移（資料返却確認画面以外）
+			if(action.equals("returnbtn")) {
+				gotoPage(request, response, "/../../WebContent/menu.jsp");
+			}
+
+			if(action.equals("returnbtn2")) {
+				gotoPage(request, response, "/../../WebContent/return.jsp");
+			}
+
+
 		} catch (DAOException e) {
-			request.setAttribute("errorMessage", "システムエラー発生。ログを確認してください！");
+			request.setAttribute("errorMessage", "エラー発生");
 			gotoPage(request, response, "/login.jsp");
 
 		} catch (Exception e) {
@@ -123,16 +148,6 @@ public class ReturnServlet extends HttpServlet {
 			return;
 		}
 
-		else if(action.equals("返却")) {
-			gotoPage(request, response, "/return/returnConfilm.jsp");
-			return;
-		}
-
-		else if(action.equals("戻る")) {
-			gotoPage(request, response, "/../../WebContent/menu.jsp");
-			return;
-		}
-
 	}
 
 	// 資料返却確認処理
@@ -165,14 +180,6 @@ public class ReturnServlet extends HttpServlet {
 		session.setAttribute("message", "");
 //		request.setAttribute("return", returnBean);
 		gotoPage(request, response, "/return/returnConfirm.jsp");
-
-		if(action.equals("返却")) {
-			gotoPage(request, response, "/return/returnDone.jsp");
-		}
-
-		if(action.equals("戻る")) {
-			gotoPage(request, response, "/return/return.jsp");
-		}
 	}
 
 	// 資料返却完了画面処理
@@ -199,9 +206,6 @@ public class ReturnServlet extends HttpServlet {
 //		request.setAttribute("return", returnBean);
 		gotoPage(request, response, "/return/returnDone.jsp");
 
-		if(action.equals("戻る")) {
-			gotoPage(request, response, "/return/return.jsp");
-		}
 	}
 
 	// 資料返却履歴処理
@@ -214,16 +218,12 @@ public class ReturnServlet extends HttpServlet {
 //		String mode = request.getParameter("mode");
 		ReturnDAO dao = new ReturnDAO();
 
-			List<ReturnBean> returnedList = dao.findAllResult();
-			System.out.println(returnedList);
-			session.setAttribute("returnedList", returnedList);
-			gotoPage(request, response, "/return/returnRezult.jsp");
-			return;
+		List<ReturnBean> returnedList = dao.findAllResult();
+		System.out.println(returnedList);
+		session.setAttribute("returnedList", returnedList);
+		gotoPage(request, response, "/return/returnReult.jsp");
+		return;
 
-//		else if(action.equals("戻る")) {
-//			gotoPage(request, response, "/../../WebContent/menu.jsp");
-//			return;
-//		}
 	}
 
 	// 資料返却画面検索
@@ -260,9 +260,7 @@ public class ReturnServlet extends HttpServlet {
 		String page = "/return/returnLog.jsp";
 		gotoPage(request, response, page);
 
-		if(action.equals("戻る")) {
-			gotoPage(request, response, "/../../WebContent/menu.jsp");
-		}
+
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
