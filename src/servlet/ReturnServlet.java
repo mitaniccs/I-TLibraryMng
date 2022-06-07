@@ -48,8 +48,6 @@ public class ReturnServlet extends HttpServlet {
 			//	以下はログインチェック済の場合
 			//	-> profileは取得できている
 
-			// 会員
-
 			if(action.equals("資料返却画面"))
 			{
 				showReturn(request, response, session, con) ;
