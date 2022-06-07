@@ -36,17 +36,7 @@ public class ReturnServlet extends HttpServlet {
 		String context = request.getContextPath(); //プロジェクト名
 
 		try {
-			//	ログインチェック
-//			if (memberBean == null) {
-//				//	ログインしていなければログイン画面へ
-//				request.setAttribute("errorMessage", "ログインをしてから再度アクセスをしてください。");
-//				gotoPage(request, response, "/login.jsp");
-//				return;
-//			}
-			//	以下はログインチェック済の場合
-			//	-> profileは取得できている
 
-			// 会員
 
 			if(action.equals("資料返却画面"))
 			{
