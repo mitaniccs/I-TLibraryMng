@@ -18,8 +18,6 @@ public class ReturnBean {
 
 	private String name;
 
-	private String title;
-
 	public ReturnBean() {
 		super();
 	}
@@ -35,7 +33,6 @@ public class ReturnBean {
 		this.rental_due_date = rental_due_date;
 		this.returned_date = returned_date;
 		this.name = name;
-		this.title = title;
 	}
 
 	// 返却画面
@@ -48,10 +45,10 @@ public class ReturnBean {
 	}
 
 	// 確認、完了
-	public ReturnBean(String name, String title, Date rental_due_date) {
+	public ReturnBean(String name, Date rental_due_date) {
 		super();
 		this.name = name;
-		this.title = title;
+
 		this.rental_due_date = rental_due_date;
 	}
 
@@ -121,19 +118,11 @@ public class ReturnBean {
 		this.name = name;
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	@Override
 	public String toString() {
 		return "ReturnBean [id=" + id + ", detail_Id=" + detail_Id + ", member_Id=" + member_Id + ", rental_date="
 				+ rental_date + ", rental_due_date=" + rental_due_date + ", returned_date=" + returned_date + ", name="
-				+ name + ", title=" + title + "]";
+				+ name + "]";
 	}
 
 }
