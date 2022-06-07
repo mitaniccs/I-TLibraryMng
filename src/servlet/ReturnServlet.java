@@ -208,7 +208,7 @@ public class ReturnServlet extends HttpServlet {
 		}
 	}
 
-	// 資料返却履歴
+	// 資料返却履歴処理
 	private void returnedLog(	HttpServletRequest request,
 								HttpServletResponse response,
 								HttpSession session,
