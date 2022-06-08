@@ -68,6 +68,9 @@ public class ReturnServlet extends HttpServlet {
 
 			if(action.equals("result"))
 			{
+//				System.out.println("result渡せた");
+//				returnedLog(request, response, session, con);
+//				return;
 				System.out.println("資料返却履歴画面のサーブレット突入");
 				List<ReturnBean> findAllResult = ReturnDAO.findAllResult();
 				request.setAttribute("returnedList", findAllResult);
