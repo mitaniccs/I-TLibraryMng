@@ -45,6 +45,10 @@ public class ReturnServlet extends HttpServlet {
 				List<ReturnBean> findAll = ReturnDAO.findAll();
 				//セッション保管完了
 				session.setAttribute("rentalList", findAll);
+				System.out.println("資料返却：リストのセッション保管完了");
+				System.out.println("findAll = " + findAll);
+				System.out.println("test ReturnBeanのdetail_Id取得" +
+					session.getAttribute("rentalList.detail_Id"));
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
 				System.out.println("資料返却画面のサーブレット脱出");
