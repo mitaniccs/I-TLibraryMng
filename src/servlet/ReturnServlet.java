@@ -50,13 +50,15 @@ public class ReturnServlet extends HttpServlet {
 
 			}
 
-			if(action.equals("confirm"))
-			{
-				System.out.println("資料返却確認画面のサーブレット突入");
+//			if(action.equals("confirm"))
+//			{
+//				System.out.println("資料返却確認画面のサーブレット突入");
+//
+//				System.out.println("資料返却確認画面のサーブレット脱出");
+//				return;
+//			}
 
-				System.out.println("資料返却確認画面のサーブレット脱出");
-				return;
-			}
+			//if(action.equals(member_Id))
 
 			if(action.equals("done"))
 			{
