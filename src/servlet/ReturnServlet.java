@@ -91,12 +91,8 @@ public class ReturnServlet extends HttpServlet {
 				returnedLog(request, response, session, con);
 				return;
 			}
-			//戻る画面に遷移（資料返却確認画面以外）
+			//戻る画面に遷移（資料返却確認画面）
 			if(action.equals("returnbtn")) {
-				gotoPage(request, response, "/../../WebContent/menu.jsp");
-			}
-
-			if(action.equals("returnbtn2")) {
 				gotoPage(request, response, "/../../WebContent/return.jsp");
 			}
 

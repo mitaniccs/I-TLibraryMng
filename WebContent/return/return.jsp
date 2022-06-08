@@ -34,14 +34,36 @@
 				<td>${detail.rental_date}</td>
 				<td>${detail.rental_due_date }</td>
 				<td>
-					<a href="/I-TLibraryMng/ReturnServlet?action=confirm?detail_Id=${detail.detail_Id}?member_Id=${detail.member_Id}">
+					<a class="btn" href="/I-TLibraryMng/ReturnServlet?action=confirm?detail_Id=${detail.detail_Id}?member_Id=${detail.member_Id}">
 					 返却 </a></td>
 			</tr>
 			</c:forEach>
 		</table>
 		<form>
-   			 <input type="button" onclick="/test.jsp" value="戻る">
+   			 <a class="btn" href="return/test.jsp">戻る</a>
 		</form>
 	</div>
 </body>
 </html>
+
+<style>
+	.btn {
+ display       : inline-block;
+ border-radius : 5%;          /* 角丸       */
+ font-size     : 13pt;        /* 文字サイズ */
+ text-align    : center;      /* 文字位置   */
+ cursor        : pointer;     /* カーソル   */
+ padding       : 2px 5px;   /* 余白       */
+ background    : #999999;     /* 背景色     */
+ color         : #ffffff;     /* 文字色     */
+ line-height   : 1em;         /* 1行の高さ  */
+ transition    : .3s;         /* なめらか変化 */
+ border        : 2px solid #999999;    /* 枠の指定 */
+	}
+	.btn:hover {
+	  box-shadow    : none;        /* カーソル時の影消去 */
+	  color         : #999999;     /* 背景色     */
+	  background    : #ffffff;     /* 文字色     */
+	}
+
+</style>
