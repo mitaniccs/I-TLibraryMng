@@ -31,8 +31,8 @@ public class ReturnServlet extends HttpServlet {
 		//	今後複数回使うオブジェクトの宣言/初期化
 		Connection con = null;
 		String action = request.getParameter("action");
-		int detail_Id = Integer.parseInt(request.getParameter("detail_Id"));
-		int member_Id = Integer.parseInt(request.getParameter("_Id"));
+//		int detail_Id = Integer.parseInt(request.getParameter("detail_Id"));
+//		int member_Id = Integer.parseInt(request.getParameter("member_Id"));
 //		MemberBean memberBean = (MemberBean) session.getAttribute("memberBean");
 //		System.out.println("ReturnServletでのmemberBean: " + memberBean);
 
@@ -54,7 +54,7 @@ public class ReturnServlet extends HttpServlet {
 			if(action.equals("confirm"))
 			{
 				System.out.println("資料返却確認画面のサーブレット突入");
-
+				//System.out.println("detail_Id = " + detail_Id + "member_Id = " + member_Id);
 				System.out.println("資料返却確認画面のサーブレット脱出");
 				return;
 			}
