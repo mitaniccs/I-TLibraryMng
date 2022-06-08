@@ -15,8 +15,8 @@
 
 
 		<table border="1" cellpadding="2" cellspace="0"
-			width="600" style="margin-bottom:20px;">
-			<tr style="background:blue">
+			width="600" style="margin-bottom:20px; text-align:center; color:white">
+			<tr style="background:#000088" color="white">
 				<td>会員ID</td>
 				<td>資料ID</td>
 				<td>返却日</td>
@@ -25,7 +25,7 @@
 			</tr>
 
 			<c:forEach items="${rentalList}" var="detail">
-			<tr>
+			<tr style="background:white">
 				<td>${detail.member_Id }</td>
 				<td>${detail.detail_Id }</td>
 				<td>${detail.rental_date}</td>
