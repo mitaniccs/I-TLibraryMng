@@ -30,7 +30,7 @@
 				<td>${detail.detail_Id }</td>
 				<td>${detail.rental_date}</td>
 				<td>${detail.rental_due_date }</td>
-				<td><a href=`/I-TLibraryMng/ReturnServlet?action=&{member_Id}`> 返却 </a></td>
+				<td><a href="/I-TLibraryMng/ReturnServlet?action=${detail.member_Id}"> 返却 </a></td>
 			</tr>
 			</c:forEach>
 		</table>
