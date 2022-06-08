@@ -15,13 +15,13 @@
 
 
 		<table border="1" cellpadding="2" cellspace="0"
-			width="600" style="margin-bottom:20px; text-align:center; color:white">
+			width="600" style="margin-bottom:20px; text-align:center">
 			<tr style="background:#000088" color="white">
 				<td>会員ID</td>
 				<td>資料ID</td>
 				<td>返却日</td>
 				<td>返却期限</td>
-				<td>返却日</td>
+				<!-- <td> 返却　</td> -->
 			</tr>
 
 			<c:forEach items="${rentalList}" var="detail">
@@ -30,8 +30,8 @@
 				<td>${detail.detail_Id }</td>
 				<td>${detail.rental_date}</td>
 				<td>${detail.rental_due_date }</td>
-				<td>${detail.returned_date}</td>
-			</tr>
+				<!-- <td><a href=`/I-TLibraryMng/ReturnServlet?action=&{member_Id}`> 返却 </a></td>
+		 --></tr>
 			</c:forEach>
 		</table>
 	</div>

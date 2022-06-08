@@ -53,7 +53,7 @@ public class ReturnDAO {
 			pstmt = conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			while(rs.next()) { //1レコード読み込み //get資料型（"フィールド名")
-				int id = rs.getInt("id");
+//				int id = rs.getInt("id");
 				int detail_Id = rs.getInt("detail_id");
 				int member_Id = rs.getInt("member_id");
 				Date rental_date = rs.getDate("rental_date");
@@ -97,6 +97,8 @@ public class ReturnDAO {
 			}
 		}
 		System.out.println("list()メソッド退場");
+		System.out.println("");
+		System.out.println("list =  " + list);
 		return list; //リストをリターン
 	}
 
