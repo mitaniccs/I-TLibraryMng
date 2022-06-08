@@ -28,69 +28,52 @@ public class ReturnServlet extends HttpServlet {
 
 		//	セッションの取得
 		HttpSession session = request.getSession(false);
-
 		//	今後複数回使うオブジェクトの宣言/初期化
 		Connection con = null;
-		//String action = request.getParameter("action");
-//		String url = request.getRequestURI();
 		String action = request.getParameter("action");
 //		MemberBean memberBean = (MemberBean) session.getAttribute("memberBean");
 //		System.out.println("ReturnServletでのmemberBean: " + memberBean);
 
 		try {
-			//	ログインチェック
-//			if (memberBean == null) {
-//				//	ログインしていなければログイン画面へ
-//				request.setAttribute("errorMessage", "ログインをしてから再度アクセスをしてください。");
-//				gotoPage(request, response, "/login.jsp");
-//				return;
-//			}
-			//	以下はログインチェック済の場合
-			//	-> profileは取得できている
 
-			// 会員
 			System.out.println("tryに入ったよ");
 			ReturnDAO returnDAO = new ReturnDAO();
 			if(action.equals("returns"))
 			{
-				//				竹内君が書いたやつ
-//				showReturn(request, response, session, con) ;
-//				return;
-//---------------------------------------------------
-
-				System.out.println("return");
+				System.out.println("資料返却画面のサーブレット突入");
 				List<ReturnBean> findAll = ReturnDAO.findAll();
 				request.setAttribute("rentalList", findAll);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
-				System.out.println("return処理終了");
+				System.out.println("資料返却画面のサーブレット脱出");
 				return;
 
 			}
 
 			if(action.equals("confirm"))
 			{
-				returnConfilm(request, response, session, con) ;
+				System.out.println("資料返却確認画面のサーブレット突入");
+
+				System.out.println("資料返却確認画面のサーブレット脱出");
 				return;
 			}
 
 			if(action.equals("done"))
 			{
-				returnDone(request, response, session, con) ;
+				System.out.println("資料返却完了画面のサーブレット突入");
+				System.out.println("資料返却完了画面のサーブレッ脱出");
+
 				return;
 			}
 
 			if(action.equals("result"))
 			{
-//				System.out.println("result渡せた");
-//				returnedLog(request, response, session, con);
-//				return;
-				System.out.println("result入った");
+				System.out.println("資料返却履歴画面のサーブレット突入");
 				List<ReturnBean> findAllResult = ReturnDAO.findAllResult();
 				request.setAttribute("returnedList", findAllResult);
 				String page = "/return/returnResult.jsp";
 				gotoPage(request, response, page);
-				System.out.println("return処理終了");
+				System.out.println("資料返却履歴画面のサーブレット脱出");
 				return;
 			}
 			//資料返却画面上での検索
