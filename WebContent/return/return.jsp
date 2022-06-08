@@ -21,7 +21,7 @@
 				<td>資料ID</td>
 				<td>返却日</td>
 				<td>返却期限</td>
-				<!-- <td> 返却　</td> -->
+				<td> 返却　</td>
 			</tr>
 
 			<c:forEach items="${rentalList}" var="detail">
@@ -30,8 +30,8 @@
 				<td>${detail.detail_Id }</td>
 				<td>${detail.rental_date}</td>
 				<td>${detail.rental_due_date }</td>
-				<!-- <td><a href=`/I-TLibraryMng/ReturnServlet?action=&{member_Id}`> 返却 </a></td>
-		 --></tr>
+				<td><a href=`/I-TLibraryMng/ReturnServlet?action=&{member_Id}`> 返却 </a></td>
+			</tr>
 			</c:forEach>
 		</table>
 	</div>
