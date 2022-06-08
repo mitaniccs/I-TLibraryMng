@@ -104,7 +104,7 @@ public class ReturnDAO {
 
 
 	//	資料情報更新
-	public void update(ReturnBean returnBean) throws DAOException{
+	public static void update(ReturnBean returnBean) throws DAOException{
 		System.out.println("update()メソッド入場");
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -116,7 +116,8 @@ public class ReturnDAO {
 			String sql
 			="update rentalTbl set returned_date=? where id=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setDate(1, returnBean.getReturned_date());
+			pstmt.setString(1, returnBean.returned_date);
+			pstmt.setInt(2, returnBean.detail_Id);
 			pstmt.executeUpdate(); //レコード修正
 		} catch (Exception e1) {
 			e1.printStackTrace();

@@ -35,7 +35,6 @@ public class ReturnServlet extends HttpServlet {
 //		System.out.println("ReturnServletでのmemberBean: " + memberBean);
 
 		try {
-
 			System.out.println("tryに入ったよ");
 			ReturnDAO returnDAO = new ReturnDAO();
 			if(action.equals("returns"))

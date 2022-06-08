@@ -1,12 +1,13 @@
 package bean;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class ReturnBean {
 	//	主キー
 	private int id;
 	//	外部キー（detailTbl）
-	private int detail_Id;
+	public int detail_Id;
 	//	外部キー(memberTbl)
 	private int member_Id;
 
@@ -14,7 +15,7 @@ public class ReturnBean {
 
 	private Date rental_due_date;
 
-	private Date returned_date;
+	public String returned_date;
 
 	private String name;
 
@@ -23,7 +24,7 @@ public class ReturnBean {
 	}
 
 	// 全件
-	public ReturnBean(int id, int detail_Id, int member_Id, Date rental_date, Date rental_due_date, Date returned_date,
+	public ReturnBean(int id, int detail_Id, int member_Id, Date rental_date, Date rental_due_date, String returned_date,
 			String name, String title) {
 		super();
 		this.id = id;
@@ -53,7 +54,7 @@ public class ReturnBean {
 	}
 
 	// 履歴
-	public ReturnBean(int detail_Id, int member_Id, Date rental_date, Date rental_due_date, Date returned_date) {
+	public ReturnBean(int detail_Id, int member_Id, Date rental_date, Date rental_due_date, String returned_date) {
 		super();
 		this.member_Id = member_Id;
 		this.detail_Id = detail_Id;
@@ -67,6 +68,20 @@ public class ReturnBean {
 		super();
 		this.member_Id = member_Id;
 		this.detail_Id = detail_Id;
+	}
+
+	public ReturnBean(int detail_Id2, LocalDateTime returned_date2) {
+		// TODO 自動生成されたコンストラクター・スタブ
+	}
+
+	public ReturnBean(String returned_date, int detail_Id) {
+		// TODO 自動生成されたコンストラクター・スタブ
+		this.returned_date = returned_date;
+		this.detail_Id = detail_Id;
+	}
+
+	public ReturnBean(int detail_Id2, int member_Id2, Date rental_date2, Date rental_due_date2, Date returned_date2) {
+		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
 	public int getId() {
@@ -109,11 +124,11 @@ public class ReturnBean {
 		this.rental_due_date = rental_due_date;
 	}
 
-	public Date getReturned_date() {
+	public String getReturned_date() {
 		return returned_date;
 	}
 
-	public void setReturned_date(Date returned_date) {
+	public void setReturned_date(String returned_date) {
 		this.returned_date = returned_date;
 	}
 
