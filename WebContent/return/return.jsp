@@ -12,16 +12,17 @@
 <body>
 	<div align="center" style="background:#cccccc">
 		<h2>資料返却画面</h2>
+		<h3 align="left" style="padding-left:40px">検索条件</h3>
 
 
 		<table border="1" cellpadding="2" cellspace="0"
-			width="600" style="margin-bottom:20px; text-align:center">
-			<tr style="background:#000088" color="white">
+			 style="margin-bottom:20px; width:95%; text-align:center">
+			<tr style="background:#000088; color:white">
 				<td>会員ID</td>
 				<td>資料ID</td>
 				<td>返却日</td>
 				<td>返却期限</td>
-				<td> 返却　</td>
+				<td>返却</td>
 			</tr>
 
 			<c:forEach items="${rentalList}" var="detail">
