@@ -13,10 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.ReturnBean;
-import dao.BookDAO;
 import dao.Common;
 import dao.DAOException;
-import dao.MemberDAO;
 import dao.ReturnDAO;
 
 @WebServlet("/ReturnServlet/*")
@@ -87,7 +85,6 @@ public class ReturnServlet extends HttpServlet {
 //				System.out.println("result渡せた");
 //				returnedLog(request, response, session, con);
 //				return;
-
 				System.out.println("result入った");
 				List<ReturnBean> findAllResult = ReturnDAO.findAllResult();
 				request.setAttribute("returnedList", findAllResult);
@@ -144,17 +141,17 @@ public class ReturnServlet extends HttpServlet {
 								Connection con) throws DAOException, Exception
 	{
 
-		request.setCharacterEncoding("UTF-8");
-		String action = request.getParameter("action");
-		ReturnDAO dao = new ReturnDAO();
-
-		if(action == null || action.length() ==0)
-		{
-			List<ReturnBean> returnList = dao.findAll();
-			session.setAttribute("retrunList", returnList);
-			gotoPage(request, response, "/return/return.jsp");
-			return;
-		}
+//		request.setCharacterEncoding("UTF-8");
+//		String action = request.getParameter("action");
+//		ReturnDAO dao = new ReturnDAO();
+//
+//		if(action == null || action.length() ==0)
+//		{
+//			List<ReturnBean> returnList = dao.findAll();
+//			session.setAttribute("retrunList", returnList);
+//			gotoPage(request, response, "/return/return.jsp");
+//			return;
+//		}
 
 	}
 
@@ -164,30 +161,30 @@ public class ReturnServlet extends HttpServlet {
 									HttpSession session,
 									Connection con) throws DAOException, Exception
 	{
-		// 返却を確認する情報の取得
-		String action = request.getParameter("action");
-
-		String memberName = request.getParameter("name");
-		String detailTitle = request.getParameter("title");
-		String rentalDueDate = request.getParameter("rental_due_date");
-
-		con = Common.getConnection();
-		ReturnDAO returnDao = new ReturnDAO();
-		BookDAO bookDao = new BookDAO();
-		MemberDAO memberDao = new MemberDAO();
-		ReturnDAO dao = new ReturnDAO();
+//		// 返却を確認する情報の取得
+//		String action = request.getParameter("action");
+//
+//		String memberName = request.getParameter("name");
+//		String detailTitle = request.getParameter("title");
+//		String rentalDueDate = request.getParameter("rental_due_date");
+//
+//		con = Common.getConnection();
+//		ReturnDAO returnDao = new ReturnDAO();
+//		BookDAO bookDao = new BookDAO();
+//		MemberDAO memberDao = new MemberDAO();
+//		ReturnDAO dao = new ReturnDAO();
 
 //		ReturnBean returnBean = dao.findAll(con, rentalDueDate);
-
-		// セッションに格納
-		session.setAttribute("name", memberName);
-		session.setAttribute("title", detailTitle);
-		session.setAttribute("rental_due_date", rentalDueDate);
-
-		//	資料確認画面に表示
-		session.setAttribute("message", "");
-//		request.setAttribute("return", returnBean);
-		gotoPage(request, response, "/return/returnConfirm.jsp");
+//
+//		// セッションに格納
+//		session.setAttribute("name", memberName);
+//		session.setAttribute("title", detailTitle);
+//		session.setAttribute("rental_due_date", rentalDueDate);
+//
+//		//	資料確認画面に表示
+//		session.setAttribute("message", "");
+////		request.setAttribute("return", returnBean);
+//		gotoPage(request, response, "/return/returnConfirm.jsp");
 	}
 
 	// 資料返却完了画面処理
@@ -226,7 +223,7 @@ public class ReturnServlet extends HttpServlet {
 //		String mode = request.getParameter("mode");
 		ReturnDAO dao = new ReturnDAO();
 
-		List<ReturnBean> returnedList = dao.findAllResult();
+		List<ReturnBean> returnedList = ReturnDAO.findAllResult();
 		System.out.println(returnedList);
 		session.setAttribute("returnedList", returnedList);
 		gotoPage(request, response, "/return/returnReult.jsp");
