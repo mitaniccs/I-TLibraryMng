@@ -159,7 +159,7 @@ public class ReturnDAO {
 				int member_Id = rs.getInt("member_id");
 				Date rental_date = rs.getDate("rental_date");
 				Date rental_due_date = rs.getDate("rental_due_date");
-				Date returned_date = rs.getDate("returned_date");
+				String returned_date = rs.getString("returned_date");
 
 
 				ReturnBean returnBean = new ReturnBean(detail_Id, member_Id, rental_date,

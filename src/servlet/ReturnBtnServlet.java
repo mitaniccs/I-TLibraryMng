@@ -43,13 +43,27 @@ public class ReturnBtnServlet extends HttpServlet {
 			//ReturnDAO returnDAO = new ReturnDAO();
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			System.out.println("返却ボタン用サーブレットの処理開始のサーブレット突入");
 
-			LocalDateTime returned_date = LocalDateTime.now();
+			LocalDateTime returned_date1 = LocalDateTime.now();
 			//ReturnBean update = new ReturnBean(detail_Id, returned_date);
-			String returned_date1 = returned_date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			String returned_date = returned_date1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 			ReturnBean returnBean
-				= new ReturnBean(returned_date1, detail_Id);
+				= new ReturnBean(returned_date, detail_Id);
 			ReturnDAO.update(returnBean);
 
 
