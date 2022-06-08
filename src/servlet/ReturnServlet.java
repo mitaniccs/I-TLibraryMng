@@ -43,7 +43,8 @@ public class ReturnServlet extends HttpServlet {
 			{
 				System.out.println("資料返却画面のサーブレット突入");
 				List<ReturnBean> findAll = ReturnDAO.findAll();
-				request.setAttribute("rentalList", findAll);
+				//セッション保管完了
+				session.setAttribute("rentalList", findAll);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
 				System.out.println("資料返却画面のサーブレット脱出");
@@ -54,6 +55,7 @@ public class ReturnServlet extends HttpServlet {
 			if(action.equals("confirm"))
 			{
 				System.out.println("資料返却確認画面のサーブレット突入");
+
 				//System.out.println("detail_Id = " + detail_Id + "member_Id = " + member_Id);
 				System.out.println("資料返却確認画面のサーブレット脱出");
 				return;
@@ -75,7 +77,7 @@ public class ReturnServlet extends HttpServlet {
 //				return;
 				System.out.println("資料返却履歴画面のサーブレット突入");
 				List<ReturnBean> findAllResult = ReturnDAO.findAllResult();
-				request.setAttribute("returnedList", findAllResult);
+				session.setAttribute("returnedList", findAllResult);
 				String page = "/return/returnResult.jsp";
 				gotoPage(request, response, page);
 				System.out.println("資料返却履歴画面のサーブレット脱出");
@@ -124,18 +126,6 @@ public class ReturnServlet extends HttpServlet {
 								HttpSession session,
 								Connection con) throws DAOException, Exception
 	{
-
-//		request.setCharacterEncoding("UTF-8");
-//		String action = request.getParameter("action");
-//		ReturnDAO dao = new ReturnDAO();
-//
-//		if(action == null || action.length() ==0)
-//		{
-//			List<ReturnBean> returnList = dao.findAll();
-//			session.setAttribute("retrunList", returnList);
-//			gotoPage(request, response, "/return/return.jsp");
-//			return;
-//		}
 
 	}
 
@@ -232,24 +222,6 @@ public class ReturnServlet extends HttpServlet {
 		if(action.equals("戻る")) {
 			gotoPage(request, response, "/../../WebContent/menu.jsp");
 		}
-	}
-
-	// 資料返却履歴検索
-	private void searchLog(	HttpServletRequest request,
-								HttpServletResponse response,
-								HttpSession session,
-								Connection con) throws DAOException, Exception
-	{
-		String action = request.getParameter("action");
-		con = Common.getConnection();
-		int memberId = Integer.parseInt(request.getParameter("member_Id"));
-		int detailId = Integer.parseInt(request.getParameter("detail_Id"));
-		ReturnDAO dao = new ReturnDAO();
-//		ReturnBean returnBean = dao.findAllResult(con, memberId, detailId);
-		String page = "/return/returnLog.jsp";
-		gotoPage(request, response, page);
-
-
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
