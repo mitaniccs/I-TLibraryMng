@@ -1,89 +1,65 @@
 package bean;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
-
 public class ReturnBean {
+
+	//定義ー－－－－－－－－－－－－－－－－－－－－
 	//	主キー
 	private int id;
 	//	外部キー（detailTbl）
-	public int detail_Id;
+	private int detail_Id;
 	//	外部キー(memberTbl)
 	private int member_Id;
 
-	private Date rental_date;
+	private String rental_date;
 
-	private Date rental_due_date;
+	private String rental_due_date;
 
-	public String returned_date;
+	private String returned_date;
 
 	private String name;
-
+//コンストラクターー－－－－－－－－－－－－－－－－－－－－－
 	public ReturnBean() {
 		super();
 	}
 
-	// 全件
-	public ReturnBean(int id, int detail_Id, int member_Id, Date rental_date, Date rental_due_date, String returned_date,
-			String name, String title) {
-		super();
+
+	public ReturnBean(int detail_Id, int member_Id, String rental_date, String rental_due_date) {
+		// TODO 自動生成されたコンストラクター・スタブ
+		this.detail_Id = detail_Id;
+		this.member_Id = member_Id;
+		this.rental_date = rental_date;
+		this.rental_due_date = rental_due_date;
+	}
+
+
+	public ReturnBean(int id, int detail_Id, int member_Id, String rental_date, String rental_due_date) {
+		// TODO 自動生成されたコンストラクター・スタブ
+		this.id = id;
+		this.detail_Id = detail_Id;
+		this.member_Id = member_Id;
+		this.rental_date = rental_date;
+		this.rental_due_date = rental_due_date;
+	}
+
+
+	public ReturnBean(int id, int detail_Id, int member_Id, String rental_date, String rental_due_date,
+			String returned_date) {
+		// TODO 自動生成されたコンストラクター・スタブ
 		this.id = id;
 		this.detail_Id = detail_Id;
 		this.member_Id = member_Id;
 		this.rental_date = rental_date;
 		this.rental_due_date = rental_due_date;
 		this.returned_date = returned_date;
-		this.name = name;
 	}
 
-	// 返却画面
-	public ReturnBean(int detail_Id, int member_Id, Date rental_date, Date rental_due_date) {
-		super();
-		this.member_Id = member_Id;
-		this.detail_Id = detail_Id;
-		this.rental_date = rental_date;
-		this.rental_due_date = rental_due_date;
+
+	public ReturnBean(String name) {
+		this.name =name;
 	}
 
-	// 確認、完了
-	public ReturnBean(String name, Date rental_due_date) {
-		super();
-		this.name = name;
 
-		this.rental_due_date = rental_due_date;
-	}
-
-	// 履歴
-	public ReturnBean(int detail_Id, int member_Id, Date rental_date, Date rental_due_date, String returned_date) {
-		super();
-		this.member_Id = member_Id;
-		this.detail_Id = detail_Id;
-		this.rental_date = rental_date;
-		this.rental_due_date = rental_due_date;
-		this.returned_date = returned_date;
-	}
-
-	public ReturnBean(int detail_Id, int member_Id) {
-		// TODO 自動生成されたコンストラクター・スタブ
-		super();
-		this.member_Id = member_Id;
-		this.detail_Id = detail_Id;
-	}
-
-	public ReturnBean(int detail_Id2, LocalDateTime returned_date2) {
-		// TODO 自動生成されたコンストラクター・スタブ
-	}
-
-	public ReturnBean(String returned_date, int detail_Id) {
-		// TODO 自動生成されたコンストラクター・スタブ
-		this.returned_date = returned_date;
-		this.detail_Id = detail_Id;
-	}
-
-	public ReturnBean(int detail_Id2, int member_Id2, Date rental_date2, Date rental_due_date2, Date returned_date2) {
-		// TODO 自動生成されたコンストラクター・スタブ
-	}
-
+	//ゲッター雪駄ーー－－－－－－－－－－－－－－－－－－－－－－－－－
 	public int getId() {
 		return id;
 	}
@@ -108,19 +84,19 @@ public class ReturnBean {
 		this.member_Id = member_Id;
 	}
 
-	public Date getRental_date() {
+	public String getRental_date() {
 		return rental_date;
 	}
 
-	public void setRental_date(Date rental_date) {
+	public void setRental_date(String rental_date) {
 		this.rental_date = rental_date;
 	}
 
-	public Date getRental_due_date() {
+	public String getRental_due_date() {
 		return rental_due_date;
 	}
 
-	public void setRental_due_date(Date rental_due_date) {
+	public void setRental_due_date(String rental_due_date) {
 		this.rental_due_date = rental_due_date;
 	}
 
@@ -140,6 +116,7 @@ public class ReturnBean {
 		this.name = name;
 	}
 
+
 	@Override
 	public String toString() {
 		return "ReturnBean [id=" + id + ", detail_Id=" + detail_Id + ", member_Id=" + member_Id + ", rental_date="
@@ -147,4 +124,9 @@ public class ReturnBean {
 				+ name + "]";
 	}
 
+
+
+
 }
+
+

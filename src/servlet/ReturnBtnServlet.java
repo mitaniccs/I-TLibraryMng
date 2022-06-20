@@ -2,7 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import javax.servlet.RequestDispatcher;
@@ -13,89 +13,127 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.ReturnBean;
+import bean.NameBean;
+import bean.Rental_due_dateBean;
+import bean.TitleBean;
 import dao.Common;
+import dao.DAOException;
 import dao.ReturnDAO;
 
-/**
- * 返却ボタンが押された場合のサーブレット
- */
-@WebServlet("/ReturnBtnServlet")
+@WebServlet("/ReturnBtnServlet/*")
 public class ReturnBtnServlet extends HttpServlet {
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		System.out.println("ReturnServletのdoPost入場");
-		//	文字化け対策
+			throws ServletException, IOException
+	{
+		System.out.println("ReturnBtnServletのdoPost入場");
+
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-
 		//	セッションの取得
 		HttpSession session = request.getSession(false);
-
+		System.out.println("ReturnBtnServletセッション準備完了");
 		Connection con = null;
-		//ゲットメソッドで資料IDの受け取り
+		String action = request.getParameter("action");
+		System.out.println("ReturnBtnServlet　：　action = " + action);
+
+		String strId = request.getParameter("id");
+		//System.out.println("ReturnBtnServlet　：　Name準備");
+
+		String strMember_Id = request.getParameter("member_Id");
+		//System.out.println("ReturnBtnServlet　：　title準備");
+
+		String strDetail_Id = request.getParameter("detail_Id");
+		//System.out.println("ReturnBtnServlet　：　date準備");
+
+		int id = Integer.parseInt(strId);
+		//System.out.println("ReturnBtnServlet　：　Name準備完了");
+		int member_Id = Integer.parseInt(strMember_Id);
+		//System.out.println("ReturnBtnServlet　：　title準備完了");
+		int detail_Id = Integer.parseInt(strDetail_Id);
+		//System.out.println("ReturnBtnServlet　：　date準備完了");
 
 
 		try {
-			int detail_Id = Integer.parseInt(request.getParameter("detail_Id"));
-			System.out.println("tryに入ったよ");
-			//ReturnDAO returnDAO = new ReturnDAO();
+			System.out.println("Rental_due_dateのtryに入ったよ");
+			if(action.equals("confirm"))
+			{
+				System.out.println("confirm入場");
+
+				NameBean name = ReturnDAO.Name(member_Id, id);
+				session.setAttribute("name", name);
+				System.out.println("servetに帰ってきたname" + name);
+
+				TitleBean title = ReturnDAO.Title(detail_Id, id);
+				session.setAttribute("title", title);
+				System.out.println("servetに帰ってきたtitle" + title);
+
+				Rental_due_dateBean rental_due_date = ReturnDAO.Rental_due_date(id);
+				session.setAttribute("rental_due_date", rental_due_date);
+				System.out.println("servetに帰ってきたrental_due_date" + rental_due_date);
+
+				String page = "/return/returnConfirm.jsp";
+				gotoPage(request, response, page);
+				System.out.println("confirm退場");
+				return;
+			}
+
+			if(action.equals("done"))
+			{
+				System.out.println("done入場");
+				//int id = Integer.parseInt(strId1);
+				//現在の日付をtodaysDateに格納
+		        LocalDate todaysDate = LocalDate.now();
+		        //todaysDateをStringがたに変更
+		        String returned_date1 = todaysDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+				ReturnDAO.Returned(id, returned_date1);
+				String page = "/return/returnDone.jsp";
+				gotoPage(request, response, page);
+				System.out.println("done退場");
+				return;
+			}
+
+			//資料返却画面上での検索
+			if(action.equals("search1")) {
+				return;
+			}
+
+			//資料返却履歴画面での検索
+			if(action.equals("search2")) {
+				return;
+			}
 
 
+		} catch (DAOException e) {
+			request.setAttribute("errorMessage", "エラー発生");
+			gotoPage(request, response, "/login.jsp");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-			System.out.println("返却ボタン用サーブレットの処理開始のサーブレット突入");
-
-			LocalDateTime returned_date1 = LocalDateTime.now();
-			//ReturnBean update = new ReturnBean(detail_Id, returned_date);
-			String returned_date = returned_date1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-			ReturnBean returnBean
-				= new ReturnBean(returned_date, detail_Id);
-			ReturnDAO.update(returnBean);
-
-
-//			request.setAttribute("rentalList", update);
-
-		}  catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 
 		} finally {
-			try {
-				if (con != null) {
-					Common.close(con);
+				try
+				{
+					if (con != null) Common.close(con);
+				} catch (Exception e)
+				{
+					e.printStackTrace();
+					request.setAttribute("errorMessage", "システムエラー発生。ログを確認してください！");
+					gotoPage(request, response, "/Error.jsp");
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				request.setAttribute("errorMessage", "システムエラー発生。ログを確認してください！");
-				gotoPage(request, response, "/Error.jsp");
-			}
 		}
-		System.out.println("try終わったよ");
+			System.out.println("try終わったよ");
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doPost(request, response);
-	}
+		throws ServletException, IOException
+		{
+			doPost(request, response);
+		}
 
-	private void gotoPage(HttpServletRequest request,
-			HttpServletResponse response, String page) throws ServletException,
-			IOException {
-		RequestDispatcher rd = request.getRequestDispatcher(page);
-		rd.forward(request, response);
-	}
-
+		private void gotoPage(HttpServletRequest request,HttpServletResponse response, String page)
+			throws ServletException,IOException
+		{
+			RequestDispatcher rd = request.getRequestDispatcher(page);
+			rd.forward(request, response);
+		}
 }

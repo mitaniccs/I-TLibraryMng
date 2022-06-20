@@ -27,15 +27,17 @@
 				<td>返却</td>
 			</tr>
 
-			<c:forEach items="${rentalList}" var="d">
+			<c:forEach items="${returnList}" var="detail">
 			<tr style="background:white">
-				<td>${d.member_Id }</td>
-				<td>${d.detail_Id }</td>
-				<td>${d.rental_date}</td>
-				<td>${d.rental_due_date }</td>
+				<td>${detail.member_Id }</td>
+				<td>${detail.detail_Id }</td>
+				<td>${detail.rental_date}</td>
+				<td>${detail.rental_due_date }</td>
 				<td>
-					<a class="btn" href='/ReturnBtnServlet?action=confirm&id=${d.id}&member_Id=${d.member_Id}&detail_Id=${d.detail_Id}'>
-					 返却 </a></td>
+					<!--URLパラメータに2値入れられなかった。そもそもセッション保管されたIdを使うべき
+					<a class="btn" href="/onelibrary2/ReturnServlet?action=confirm?detail_Id=${detail.detail_Id}?member_Id=${detail.member_Id}">-->
+					<a class="btn" href="/onelibrary2/ReturnBtnServlet?action=confirm&id=${detail.id}&detail_Id=${detail.detail_Id}&member_Id=${detail.member_Id}">返却 </a>
+				</td>
 			</tr>
 			</c:forEach>
 		</table>

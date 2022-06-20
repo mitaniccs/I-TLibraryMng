@@ -60,7 +60,5 @@ public class MemberDAO {
 					throw new DAOException("Connectionオブジェクトの開放に失敗");
 			}
 		}
-
-
 	}
 }

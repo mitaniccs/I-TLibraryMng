@@ -1,16 +1,14 @@
 package bean;
 
-import java.sql.Date;
-
 public class Detail_BookBean {
-	
+
 	private int id;
 	//	外部キー（bookTbl）
 	private String book_isbn;
 	//	外部キー(memberTbl)
 	private String title;
-	
-	
+
+
 	public Detail_BookBean() {
 		super();
 	}
@@ -45,6 +43,6 @@ public class Detail_BookBean {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
 
 }

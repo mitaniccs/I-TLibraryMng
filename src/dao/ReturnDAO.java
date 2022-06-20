@@ -1,24 +1,25 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import bean.NameBean;
+import bean.Rental_due_dateBean;
 import bean.ReturnBean;
+import bean.TitleBean;
 
 public class ReturnDAO {
 
 
-	private static Connection getConnection() throws DAOException{
-		System.out.println("getConnection()メソッド入場");
+	private static Connection getConnection() throws DAOException
+	{
 		Connection conn = null;
-
 		try {
-			System.out.println("getConnection()メソッド入場");
+			//System.out.println("getConnection()メソッド入場");
 			//		JDBCドライバの登録
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			//		URL、ユーザー名、パスワードの設定
@@ -36,9 +37,9 @@ public class ReturnDAO {
 		return conn;
 	}
 
-	//資料返却画面(全件検索)
+	//資料返却画面 全件検索
 	public static List<ReturnBean> findAll() throws DAOException{
-		System.out.println("資料返却画面メソッド()メソッド入場");
+		System.out.println("findAllメソッド()入場");
 
 		List<ReturnBean> list = new ArrayList<>();
 		Connection conn = null; //db接続
@@ -47,28 +48,29 @@ public class ReturnDAO {
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 			System.out.println("findAllメソッド内　getConnection()成功");
-			String sql =
-					"select * from rentalTbl ";
+			//returned_date部分がnull以外のモノだけ表示するため
+			String sql ="select id, detail_id, member_id, rental_date, rental_due_date "
+					+ "from rentalTbl where returned_date is null";
 			pstmt = conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
-			while(rs.next()) { //1レコード読み込み //get資料型（"フィールド名")
-//				int id = rs.getInt("id");
+			while(rs.next())
+			{ //1レコード読み込み //get資料型（"フィールド名")
+				int id = rs.getInt("id");
 				int detail_Id = rs.getInt("detail_id");
 				int member_Id = rs.getInt("member_id");
-				Date rental_date = rs.getDate("rental_date");
-				Date rental_due_date = rs.getDate("rental_due_date");
+				String rental_date = rs.getString("rental_date");
+				String rental_due_date = rs.getString("rental_due_date");
 
 
 				ReturnBean returnBean =
-						new ReturnBean(detail_Id, member_Id, rental_date, rental_due_date);
+						new ReturnBean(id, detail_Id, member_Id, rental_date, rental_due_date);
 				//以下２行確認用
 //				ReturnBean returnBean =
 //						new ReturnBean(detail_Id, member_Id);
 
-
 				System.out.println(returnBean);
+
 				list.add(returnBean); //リストに追加
-				System.out.println("list = " + list);
 			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -95,28 +97,187 @@ public class ReturnDAO {
 				throw new DAOException("Connectionオブジェクトの開放に失敗しました。");
 			}
 		}
-		System.out.println("list()メソッド退場");
-		System.out.println("");
-		System.out.println("list =  " + list);
+		System.out.println("list = " + list);
+		System.out.println("findAll()メソッド退場");
 		return list; //リストをリターン
 	}
 
+	//返却ボタンが押されたときに名前を取得するDAO
+	public static NameBean Name(int member_Id,int id) throws DAOException{
+		System.out.println("Name()メソッド入場");
+		//ReturnBean returnBean = null;
+		NameBean name = null;
+		List<NameBean> list = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+			//rentalTblとmemberTblを合体
+			String sql = "SELECT name FROM rentalTbl a"
+					+ " INNER JOIN memberTbl b"
+					+ " ON a.member_id= b.id";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next())//一旦変数nameの値をlist or 配列で格納して持ってきたmember_Idの部分だけ返したい
+			{ //1レコード読み込み //get資料型（"フィールド名")
+				String name1 = rs.getString("name");
+
+				NameBean nameBean = new NameBean(name1);
+				list.add(nameBean); //リストに追加
+			}
+			System.out.println("name = " + list);
+			//idがよくない。プライマリーキーであるため
+			name = list.get(id-1);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			throw new DAOException("データの取得（1件）に失敗しました");
+		} finally {
+			try {
+				if(rs!=null)rs.close();
+			}catch (Exception e2) {
+					e2.printStackTrace();
+					throw new DAOException("ResultSetオブジェクトの開放に失敗");
+			}
+			try {
+				if(pstmt!=null)pstmt.close();
+			}catch (Exception e3) {
+					e3.printStackTrace();
+					throw new DAOException("PreparedStatementオブジェクトの開放に失敗");
+			}
+			try {
+				if(conn!=null)conn.close();
+			}catch (Exception e4) {
+					e4.printStackTrace();
+					throw new DAOException("Connectionオブジェクトの開放に失敗");
+			}
+		}
+		System.out.println("getConnection()メソッド退場");
+		return name;
+	}
+
+	//返却ボタンが押されたときに資料名を取得するDAO
+	public static TitleBean Title(int detail_Id, int id) throws DAOException{
+		System.out.println("Title()メソッド入場");
+		//ReturnBean returnBean = null;
+		TitleBean title = null;
+		List<TitleBean> list = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+			//rentalTblとdetailTblとbookTblを合体
+			String sql = "SELECT title FROM rentalTbl a"
+					+ " INNER JOIN detailTbl b"
+					+ " ON a.detail_id= b.id"
+					+ " INNER JOIN bookTbl c"
+					+ " ON b.book_isbn = c.isbn";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next())
+			{ //1レコード読み込み //get資料型（"フィールド名")
+				String title1 = rs.getString("title");
+
+				TitleBean titleBean = new TitleBean(title1);
+				list.add(titleBean); //リストに追加
+			}
+			System.out.println("title = " + list);
+			//idがよくない。プライマリーキーであるため
+			title = list.get(id-1);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			throw new DAOException("データの取得（1件）に失敗しました");
+		} finally {
+			try {
+				if(rs!=null)rs.close();
+			}catch (Exception e2) {
+					e2.printStackTrace();
+					throw new DAOException("ResultSetオブジェクトの開放に失敗");
+			}
+			try {
+				if(pstmt!=null)pstmt.close();
+			}catch (Exception e3) {
+					e3.printStackTrace();
+					throw new DAOException("PreparedStatementオブジェクトの開放に失敗");
+			}
+			try {
+				if(conn!=null)conn.close();
+			}catch (Exception e4) {
+					e4.printStackTrace();
+					throw new DAOException("Connectionオブジェクトの開放に失敗");
+			}
+		}
+		System.out.println("getConnection()メソッド退場");
+		return title;
+	}
+
+	//返却ボタンが押されたときに返却期限を取得するDAO
+	public static Rental_due_dateBean Rental_due_date(int id) throws DAOException{
+		System.out.println("Rental_due_date()メソッド入場");
+		//ReturnBean returnBean = null;
+		Rental_due_dateBean rental_due_date = null;
+		List<Rental_due_dateBean> list = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+
+			String sql ="select id, rental_due_date from rentalTbl ";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next())
+			{ //1レコード読み込み //get資料型（"フィールド名")
+				int id1 = rs.getInt("id");
+				String rental_due_date1 = rs.getString("rental_due_date");
+
+				Rental_due_dateBean rental_due_dateBean = new Rental_due_dateBean(id1, rental_due_date1);
+				list.add(rental_due_dateBean); //リストに追加
+			}
+			System.out.println("title = " + list);
+			rental_due_date = list.get(id-1);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			throw new DAOException("データの取得（1件）に失敗しました");
+		} finally {
+			try {
+				if(rs!=null)rs.close();
+			}catch (Exception e2) {
+					e2.printStackTrace();
+					throw new DAOException("ResultSetオブジェクトの開放に失敗");
+			}
+			try {
+				if(pstmt!=null)pstmt.close();
+			}catch (Exception e3) {
+					e3.printStackTrace();
+					throw new DAOException("PreparedStatementオブジェクトの開放に失敗");
+			}
+			try {
+				if(conn!=null)conn.close();
+			}catch (Exception e4) {
+					e4.printStackTrace();
+					throw new DAOException("Connectionオブジェクトの開放に失敗");
+			}
+		}
+		System.out.println("getConnection()メソッド退場");
+		return rental_due_date;
+	}
 
 	//	資料情報更新
-	public static void update(ReturnBean returnBean) throws DAOException{
-		System.out.println("update()メソッド入場");
+	public static void Returned(int id, String returned_date) throws DAOException{
+		System.out.println("Returned()メソッド入場");
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
-			if(conn == null)
-				conn = getConnection(); //db接続Connectionリターン
+			if(conn == null) conn = getConnection(); //db接続Connectionリターン
+
 
 //			idは資料返却画面の返却ボタンが押された時にゲットメソッドで持ってくる
-			String sql
-			="update rentalTbl set returned_date=? where id=?";
+			String sql ="update rentalTbl set returned_date=? where id=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, returnBean.returned_date);
-			pstmt.setInt(2, returnBean.detail_Id);
+			pstmt.setString(1, returned_date);
+			pstmt.setInt(2, id);
 			pstmt.executeUpdate(); //レコード修正
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -135,12 +296,12 @@ public class ReturnDAO {
 				throw new DAOException("Connectionオブジェクトの開放に失敗しました。");
 			}
 		}
-		System.out.println("update()メソッド退場");
+		System.out.println("Returned()メソッド退場");
 	}
 
-	//資料返却履歴画面
+//	資料返却履歴画面
 	public static List<ReturnBean> findAllResult() throws DAOException{
-		System.out.println("bookList()メソッド入場");
+		System.out.println("findAllResult()メソッド入場");
 
 		List<ReturnBean> resultList = new ArrayList<>();
 		Connection conn = null; //db接続
@@ -149,20 +310,19 @@ public class ReturnDAO {
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 
-			String sql =
-					"select * from rentalTbl ";
+			String sql = "select * from rentalTbl" ;  //order by rental_due_date DESC;
 			pstmt = conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			while(rs.next()) { //1レコード読み込み //get資料型（"フィールド名")
+				int id = rs.getInt("id");
 				int detail_Id = rs.getInt("detail_id");
 				int member_Id = rs.getInt("member_id");
-				Date rental_date = rs.getDate("rental_date");
-				Date rental_due_date = rs.getDate("rental_due_date");
+				String rental_date = rs.getString("rental_date");
+				String rental_due_date = rs.getString("rental_due_date");
 				String returned_date = rs.getString("returned_date");
 
-
-				ReturnBean returnBean = new ReturnBean(detail_Id, member_Id, rental_date,
-						rental_due_date, returned_date);
+				ReturnBean returnBean =
+					new ReturnBean(id, detail_Id, member_Id, rental_date, rental_due_date, returned_date);
 				//System.out.println(returnBean);
 				resultList.add(returnBean); //リストに追加
 			}
@@ -191,72 +351,8 @@ public class ReturnDAO {
 				throw new DAOException("Connectionオブジェクトの開放に失敗しました。");
 			}
 		}
-		System.out.println("bookList()メソッド退場");
+		System.out.println("findAllResult()メソッド退場");
 		return resultList; //リストをリターン
 	}
-//
-//	public static ReturnBean findBymemberId() {
-//		System.out.println("memberId獲得用メソッド()入場");
-//		ReturnBean member_Id = new ReturnBean();
-//		Connection conn = null; //db接続
-//		PreparedStatement pstmt = null; //sql実行
-//		ResultSet rs = null; //結果セット
-//		try {
-//			conn = getConnection(); //db接続Connectionリターン
-//			System.out.println("findBymemberIdメソッド内　getConnection()成功");
-//			String sql =
-//					"select member_Id from rentalTbl ";
-//			pstmt = conn.prepareStatement(sql);
-//			rs=pstmt.executeQuery();
-//			while(rs.next()) { //1レコード読み込み //get資料型（"フィールド名")
-////				int id = rs.getInt("id");
-//				int detail_Id = rs.getInt("detail_id");
-//				int member_Id = rs.getInt("member_id");
-//				Date rental_date = rs.getDate("rental_date");
-//				Date rental_due_date = rs.getDate("rental_due_date");
-//
-//
-//				ReturnBean returnBean =
-//						new ReturnBean(detail_Id, member_Id, rental_date, rental_due_date);
-//				//以下２行確認用
-////				ReturnBean returnBean =
-////						new ReturnBean(detail_Id, member_Id);
-//
-//
-//				System.out.println(returnBean);
-//				list.add(returnBean); //リストに追加
-//				System.out.println("list = " + list);
-//			}
-//		} catch (Exception e1) {
-//			e1.printStackTrace();
-//			throw new DAOException("リストの取得に失敗しました。");
-//		} finally {
-//			//			トレースしやすくするため
-//			try {
-//				if(rs != null) rs.close();
-//			} catch (Exception e2) {
-//				e2.printStackTrace();
-//				throw new DAOException("ResulutSetオブジェクトの開放に失敗しました。");
-//
-//			}
-//			try {
-//				if(pstmt != null) pstmt.close();
-//			} catch(Exception e3) {
-//				e3.printStackTrace();
-//				throw new DAOException("PreparedStatementオブジェクトの開放に失敗しました。");
-//			}
-//			try {
-//				if(conn != null) conn.close();
-//			} catch (Exception e4) {
-//				e4.printStackTrace();
-//				throw new DAOException("Connectionオブジェクトの開放に失敗しました。");
-//			}
-//		}
-//		System.out.println("list()メソッド退場");
-//		System.out.println("");
-//		System.out.println("list =  " + list);
-//		return list; //リストをリターン
-//		return null;
-//	}
 
 }
