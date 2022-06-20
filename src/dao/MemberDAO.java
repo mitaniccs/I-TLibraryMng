@@ -76,7 +76,7 @@ public class MemberDAO {
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 
-			String sql ="select * from rentalTbl where id = ?";
+			String sql ="select * from rentalTbl where member_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, member_Id);
 			rs=pstmt.executeQuery();
@@ -139,7 +139,7 @@ public class MemberDAO {
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 
-			String sql = "select * from rentalTbl where id = ?" ;  //order by rental_due_date DESC;
+			String sql = "select * from rentalTbl where member_id = ?" ;  //order by rental_due_date DESC;
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, Member_Id);
 			rs=pstmt.executeQuery();
