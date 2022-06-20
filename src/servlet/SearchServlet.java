@@ -86,7 +86,7 @@ public class SearchServlet extends HttpServlet {
 
 			if(detail_Id != 0 && member_Id != 0) {
 				System.out.println("returns入場");
-				List<ReturnBean> findOnly = ReturnDAO.findOnly();
+				List<ReturnBean> findOnly = ReturnDAO.findOnly(member_Id, detail_Id);
 				System.out.println("returnList = " + findOnly);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);

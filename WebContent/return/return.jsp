@@ -15,7 +15,7 @@
 		<div align="left" style="padding-left:40px">
 			<h3>検索条件</h3>
 			<form action="I-TLibraryMng/SearchServlet" method="POST">
-				<p>会員ID：<input type="search" name="memberID"></p>
+				<p>会員ID：<input type="text" name="memberID"></p>
 				<p>資料ID：<input type="search" name="articleID">
 					<input type="submit" value="検索"></p>
 			</form>

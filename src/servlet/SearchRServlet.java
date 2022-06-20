@@ -56,7 +56,7 @@ public class SearchRServlet extends HttpServlet {
 			{
 
 				System.out.println("returns入場");
-				List<ReturnBean> findMemberId = MemberDAO.findMemberResult(member_Id);
+				List<ReturnBean> findMemberId = MemberDAO.findMemberResult(strMember_Id);
 				System.out.println("returnList = " + findMemberId);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
@@ -68,7 +68,7 @@ public class SearchRServlet extends HttpServlet {
 			{
 
 				System.out.println("returns入場");
-				List<ReturnBean> findDetailId = BookDAO.findBookResult(detail_Id);
+				List<ReturnBean> findDetailId = BookDAO.findBookResult(strDetail_Id);
 				System.out.println("returnList = " + findDetailId);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
@@ -88,7 +88,7 @@ public class SearchRServlet extends HttpServlet {
 
 			if(detail_Id != 0 && member_Id != 0) {
 				System.out.println("returns入場");
-				List<ReturnBean> findOnly = ReturnDAO.findOnlyResult();
+				List<ReturnBean> findOnly = ReturnDAO.findOnlyResult(strMember_Id, strDetail_Id);
 				System.out.println("returnList = " + findOnly);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);

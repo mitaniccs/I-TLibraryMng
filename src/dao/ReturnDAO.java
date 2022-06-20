@@ -356,7 +356,7 @@ public class ReturnDAO {
 	}
 
 	// 資料返却画面での１件検索
-	public List<ReturnBean> findOnly(String detail_Id, String member_Id) throws DAOException{
+	public static List<ReturnBean> findOnly(int member_Id2, int detail_Id2) throws DAOException{
 		System.out.println("findOnly()メソッド入場");
 		List<ReturnBean> searchOnly = new ArrayList<>();
 		Connection conn = null; //db接続
@@ -367,8 +367,8 @@ public class ReturnDAO {
 
 			String sql ="select * from rentalTbl where detail_id = ? and member_id = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, detail_Id);
-			pstmt.setString(2, member_Id);
+			pstmt.setInt(1, member_Id2);
+			pstmt.setInt(2, detail_Id2);
 			rs=pstmt.executeQuery();
 			while(rs.next())
 			{ //1レコード読み込み //get資料型（"フィールド名")
@@ -419,7 +419,7 @@ public class ReturnDAO {
 	}
 
 	// 資料返却履歴画面での１件検索
-	public List<ReturnBean> findOnlyResult(String detail_Id, String member_Id) throws DAOException{
+	public static List<ReturnBean> findOnlyResult(String strMember_Id, String strDetail_Id) throws DAOException{
 		System.out.println("findOnlyResult()メソッド入場");
 		List<ReturnBean> resultOnly = new ArrayList<>();
 		Connection conn = null; //db接続
@@ -430,8 +430,8 @@ public class ReturnDAO {
 
 			String sql ="select * from rentalTbl where detail_id = ? and member_id = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, detail_Id);
-			pstmt.setString(2, member_Id);
+			pstmt.setString(1, strMember_Id);
+			pstmt.setString(2, strDetail_Id);
 			rs=pstmt.executeQuery();
 			while(rs.next())
 			{ //1レコード読み込み //get資料型（"フィールド名")
