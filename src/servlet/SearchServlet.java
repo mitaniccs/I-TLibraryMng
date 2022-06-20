@@ -38,7 +38,7 @@ public class SearchServlet extends HttpServlet {
 		Connection con = null;
 
 		String strMember_Id = request.getParameter("member_Id");
-		//System.out.println("ReturnBtnServlet　：　title準備");
+		System.out.println("searchservlet  strMember_Id = " + strMember_Id);
 
 		String strDetail_Id = request.getParameter("detail_Id");
 		//System.out.println("ReturnBtnServlet　：　date準備");
