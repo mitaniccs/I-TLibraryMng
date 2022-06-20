@@ -13,7 +13,7 @@ import bean.ReturnBean;
 public class BookDAO {
 //	資料返却確認画面、資料返却完了画面
 
-	private Connection getConnection() throws DAOException {
+	private static Connection getConnection() throws DAOException {
 		System.out.println("getConnection()メソッド入場");
 		Connection conn = null;
 
@@ -77,7 +77,7 @@ public class BookDAO {
 	}
 
 	// 資料返却画面での検索
-	public List<ReturnBean> findBookId(String detail_Id) throws DAOException{
+	public static List<ReturnBean> findDetailId(int detail_Id) throws DAOException{
 		System.out.println("findBookId()メソッド入場");
 		List<ReturnBean> searchBook = new ArrayList<>();
 		Connection conn = null; //db接続
@@ -88,7 +88,7 @@ public class BookDAO {
 
 			String sql ="select * from rentalTbl where id = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, detail_Id);
+			pstmt.setInt(1, detail_Id);
 			rs=pstmt.executeQuery();
 			while(rs.next())
 			{ //1レコード読み込み //get資料型（"フィールド名")

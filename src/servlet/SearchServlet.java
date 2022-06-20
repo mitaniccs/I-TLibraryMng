@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.ReturnBean;
+import dao.BookDAO;
 import dao.Common;
 import dao.DAOException;
 import dao.MemberDAO;
@@ -65,7 +66,7 @@ public class SearchServlet extends HttpServlet {
 			{
 
 				System.out.println("returns入場");
-				List<ReturnBean> findDetailId = MemberDAO.findDetailId(detail_Id);
+				List<ReturnBean> findDetailId = BookDAO.findDetailId(detail_Id);
 				System.out.println("returnList = " + findDetailId);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);

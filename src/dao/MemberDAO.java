@@ -11,7 +11,7 @@ import bean.ReturnBean;
 
 public class MemberDAO {
 
-	private Connection getConnection() throws DAOException {
+	private static Connection getConnection() throws DAOException {
 		System.out.println("getConnection()メソッド入場");
 		Connection conn = null;
 
@@ -67,7 +67,7 @@ public class MemberDAO {
 	}
 
 	// 資料返却画面での検索
-	public List<ReturnBean> findMemberId(String member_Id) throws DAOException{
+	public static List<ReturnBean> findMemberId(int member_Id) throws DAOException{
 		System.out.println("findMemberId()メソッド入場");
 		List<ReturnBean> searchMemList = new ArrayList<>();
 		Connection conn = null; //db接続
@@ -78,7 +78,7 @@ public class MemberDAO {
 
 			String sql ="select * from rentalTbl where id = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, member_Id);
+			pstmt.setInt(1, member_Id);
 			rs=pstmt.executeQuery();
 			while(rs.next())
 			{ //1レコード読み込み //get資料型（"フィールド名")
