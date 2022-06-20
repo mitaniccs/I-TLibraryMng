@@ -18,9 +18,11 @@ import dao.DAOException;
 import dao.MemberDAO;
 import dao.ReturnDAO;
 
-@WebServlet("/SearchServlet/*")
-public class SearchServlet extends HttpServlet {
-
+/**
+ * Servlet implementation class SearchRServlet
+ */
+@WebServlet("/SearchRServlet")
+public class SearchRServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -54,7 +56,7 @@ public class SearchServlet extends HttpServlet {
 			{
 
 				System.out.println("returns入場");
-				List<ReturnBean> findMemberId = MemberDAO.findMemberId(member_Id);
+				List<ReturnBean> findMemberId = MemberDAO.findMemberResult(member_Id);
 				System.out.println("returnList = " + findMemberId);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
@@ -66,7 +68,7 @@ public class SearchServlet extends HttpServlet {
 			{
 
 				System.out.println("returns入場");
-				List<ReturnBean> findDetailId = BookDAO.findBookId(detail_Id);
+				List<ReturnBean> findDetailId = BookDAO.findBookResult(detail_Id);
 				System.out.println("returnList = " + findDetailId);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
@@ -76,7 +78,7 @@ public class SearchServlet extends HttpServlet {
 
 			if(detail_Id == 0 && member_Id == 0) {
 				System.out.println("returns入場");
-				List<ReturnBean> findAll = ReturnDAO.findAll();
+				List<ReturnBean> findAll = ReturnDAO.findAllResult();
 				System.out.println("returnList = " + findAll);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
@@ -86,7 +88,7 @@ public class SearchServlet extends HttpServlet {
 
 			if(detail_Id != 0 && member_Id != 0) {
 				System.out.println("returns入場");
-				List<ReturnBean> findOnly = ReturnDAO.findOnly();
+				List<ReturnBean> findOnly = ReturnDAO.findOnlyResult();
 				System.out.println("returnList = " + findOnly);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
@@ -122,6 +124,5 @@ public class SearchServlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request, response);
 	}
+
 }
-
-
