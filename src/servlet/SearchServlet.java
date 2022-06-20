@@ -55,6 +55,7 @@ public class SearchServlet extends HttpServlet {
 
 				System.out.println("returns入場");
 				List<ReturnBean> findMemberId = MemberDAO.findMemberId(member_Id);
+
 				System.out.println("returnList = " + findMemberId);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
