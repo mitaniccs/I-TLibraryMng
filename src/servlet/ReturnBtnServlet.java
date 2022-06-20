@@ -54,7 +54,6 @@ public class ReturnBtnServlet extends HttpServlet {
 
 
 		try {
-			System.out.println("Rental_due_dateのtryに入ったよ");
 			if(action.equals("confirm"))
 			{
 				System.out.println("confirm入場");

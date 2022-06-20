@@ -49,7 +49,6 @@ public class SearchServlet extends HttpServlet {
 		//System.out.println("ReturnBtnServlet　：　date準備完了");
 
 		try {
-			System.out.println("Rental_due_dateのtryに入ったよ");
 			if(detail_Id == 0 && member_Id != 0)
 			{
 
@@ -114,7 +113,7 @@ public class SearchServlet extends HttpServlet {
 				gotoPage(request, response, "/Error.jsp");
 			}
 			}
-			System.out.println("try終わったよ");
+
 		}
 
 	private void gotoPage(HttpServletRequest request,
