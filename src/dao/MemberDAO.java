@@ -67,8 +67,7 @@ public class MemberDAO {
 	}
 
 	// 資料返却画面での検索
-//	public static List<ReturnBean> findMemberId(int member_Id) throws DAOException{
-	public static List<ReturnBean> findMemberId(int member_Id2) throws DAOException{
+	public static List<ReturnBean> findMemberId(int member_Id) throws DAOException{
 		System.out.println("findMemberId()メソッド入場");
 		List<ReturnBean> searchMemList = new ArrayList<>();
 		Connection conn = null; //db接続
@@ -79,8 +78,7 @@ public class MemberDAO {
 
 			String sql ="select * from rentalTbl where id = ?";
 			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, member_Id);
-			pstmt.setInt(1, member_Id2);
+			pstmt.setInt(1, member_Id);
 			rs=pstmt.executeQuery();
 			while(rs.next())
 			{ //1レコード読み込み //get資料型（"フィールド名")
@@ -131,7 +129,7 @@ public class MemberDAO {
 	}
 
 //	資料返却履歴画面での検索
-	public static List<ReturnBean> findMemberResult(String strMember_Id) throws DAOException{
+	public static List<ReturnBean> findMemberResult(String Member_Id) throws DAOException{
 		System.out.println("findMemberResult()メソッド入場");
 
 		List<ReturnBean> resultMember = new ArrayList<>();
@@ -143,7 +141,7 @@ public class MemberDAO {
 
 			String sql = "select * from rentalTbl where id = ?" ;  //order by rental_due_date DESC;
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, strMember_Id);
+			pstmt.setString(1, Member_Id);
 			rs=pstmt.executeQuery();
 			while(rs.next()) { //1レコード読み込み //get資料型（"フィールド名")
 				int id = rs.getInt("id");

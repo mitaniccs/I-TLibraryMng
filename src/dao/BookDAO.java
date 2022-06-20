@@ -77,10 +77,9 @@ public class BookDAO {
 	}
 
 	// 資料返却画面での検索
-//	public static List<ReturnBean> findDetailId(int detail_Id) throws DAOException{
-	public static List<ReturnBean> findBookId(int detail_Id2) throws DAOException{
-		System.out.println("findBookId()メソッド入場");
-		List<ReturnBean> searchBook = new ArrayList<>();
+	public static List<ReturnBean> findDetailId(int detail_Id) throws DAOException{
+		System.out.println("findDetailId()メソッド入場");
+		List<ReturnBean> searchDetail = new ArrayList<>();
 		Connection conn = null; //db接続
 		PreparedStatement pstmt = null; //sql実行
 		ResultSet rs = null; //結果セット
@@ -89,8 +88,7 @@ public class BookDAO {
 
 			String sql ="select * from rentalTbl where id = ?";
 			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, detail_Id);
-			pstmt.setInt(1, detail_Id2);
+			pstmt.setInt(1, detail_Id);
 			rs=pstmt.executeQuery();
 			while(rs.next())
 			{ //1レコード読み込み //get資料型（"フィールド名")
@@ -109,10 +107,10 @@ public class BookDAO {
 
 				System.out.println(returnBean);
 
-				searchBook.add(returnBean); //リストに追加
+				searchDetail.add(returnBean); //リストに追加
 			}
 			System.out.println("FindBookId()メソッド退場");
-			return searchBook;
+			return searchDetail;
 
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -141,8 +139,8 @@ public class BookDAO {
 	}
 
 //	資料返却履歴画面での検索
-	public static List<ReturnBean> findBookResult(String strDetail_Id) throws DAOException{
-		System.out.println("findBookResult()メソッド入場");
+	public static List<ReturnBean> findDetailResult(String Detail_Id) throws DAOException{
+		System.out.println("findDetailResult()メソッド入場");
 
 		List<ReturnBean> resultBook = new ArrayList<>();
 		Connection conn = null; //db接続
@@ -153,7 +151,7 @@ public class BookDAO {
 
 			String sql = "select * from rentalTbl where id = ?" ;  //order by rental_due_date DESC;
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, strDetail_Id);
+			pstmt.setString(1, Detail_Id);
 			rs=pstmt.executeQuery();
 			while(rs.next()) { //1レコード読み込み //get資料型（"フィールド名")
 				int id = rs.getInt("id");
@@ -193,7 +191,7 @@ public class BookDAO {
 				throw new DAOException("Connectionオブジェクトの開放に失敗しました。");
 			}
 		}
-		System.out.println("findBookResult()メソッド退場");
+		System.out.println("findDetailResult()メソッド退場");
 		return resultBook; //リストをリターン
 	}
 }

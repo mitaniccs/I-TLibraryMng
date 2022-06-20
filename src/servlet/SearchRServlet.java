@@ -67,7 +67,7 @@ public class SearchRServlet extends HttpServlet {
 			{
 
 				System.out.println("returns入場");
-				List<ReturnBean> findDetailId = BookDAO.findBookResult(strDetail_Id);
+				List<ReturnBean> findDetailId = BookDAO.findDetailResult(strDetail_Id);
 				System.out.println("returnList = " + findDetailId);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
