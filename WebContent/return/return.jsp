@@ -36,7 +36,7 @@
 				<td>
 					<!--URLパラメータに2値入れられなかった。そもそもセッション保管されたIdを使うべき
 					<a class="btn" href="/onelibrary2/ReturnServlet?action=confirm?detail_Id=${detail.detail_Id}?member_Id=${detail.member_Id}">-->
-					<a class="btn" href="/onelibrary2/ReturnBtnServlet?action=confirm&id=${detail.id}&detail_Id=${detail.detail_Id}&member_Id=${detail.member_Id}">返却 </a>
+					<a class="btn" href="/I-TLibraryMng/ReturnBtnServlet?action=confirm&id=${detail.id}&detail_Id=${detail.detail_Id}&member_Id=${detail.member_Id}">返却 </a>
 				</td>
 			</tr>
 			</c:forEach>

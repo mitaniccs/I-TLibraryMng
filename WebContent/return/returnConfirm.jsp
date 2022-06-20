@@ -18,8 +18,8 @@
 		<p style="font-weight:bolder">返却期限<span>${rental_due_date.rental_due_date}</span></p>
 		<!--  <input type="submit" name="action" value="返却">
 		<input type="submit" name="action" value="戻る">-->
-		<a href="/onelibrary2/ReturnBtnServlet?action=done&id=${rental_due_date.id}&member_Id=0&detail_Id=0">返却</a>
-		<a href="/onelibrary2/ReturnServlet?action=returns">戻る</a>
+		<a href="/I-TLibraryMng/ReturnBtnServlet?action=done&id=${rental_due_date.id}&member_Id=0&detail_Id=0">返却</a>
+		<a href="/I-TLibraryMng/ReturnServlet?action=returns">戻る</a>
 	</div>
 </table>
 </body>
