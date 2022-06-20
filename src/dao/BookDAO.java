@@ -77,7 +77,8 @@ public class BookDAO {
 	}
 
 	// 資料返却画面での検索
-	public static List<ReturnBean> findDetailId(int detail_Id) throws DAOException{
+//	public static List<ReturnBean> findDetailId(int detail_Id) throws DAOException{
+	public static List<ReturnBean> findBookId(int detail_Id2) throws DAOException{
 		System.out.println("findBookId()メソッド入場");
 		List<ReturnBean> searchBook = new ArrayList<>();
 		Connection conn = null; //db接続
@@ -88,7 +89,8 @@ public class BookDAO {
 
 			String sql ="select * from rentalTbl where id = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, detail_Id);
+//			pstmt.setInt(1, detail_Id);
+			pstmt.setInt(1, detail_Id2);
 			rs=pstmt.executeQuery();
 			while(rs.next())
 			{ //1レコード読み込み //get資料型（"フィールド名")
@@ -139,7 +141,7 @@ public class BookDAO {
 	}
 
 //	資料返却履歴画面での検索
-	public List<ReturnBean> findBookResult(String detail_Id) throws DAOException{
+	public static List<ReturnBean> findBookResult(String strDetail_Id) throws DAOException{
 		System.out.println("findBookResult()メソッド入場");
 
 		List<ReturnBean> resultBook = new ArrayList<>();
@@ -151,7 +153,7 @@ public class BookDAO {
 
 			String sql = "select * from rentalTbl where id = ?" ;  //order by rental_due_date DESC;
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, detail_Id);
+			pstmt.setString(1, strDetail_Id);
 			rs=pstmt.executeQuery();
 			while(rs.next()) { //1レコード読み込み //get資料型（"フィールド名")
 				int id = rs.getInt("id");
