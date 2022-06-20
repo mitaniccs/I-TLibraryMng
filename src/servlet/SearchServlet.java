@@ -1,17 +1,19 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.NameBean;
-import bean.Rental_due_dateBean;
 import bean.ReturnBean;
-import bean.TitleBean;
+import dao.Common;
+import dao.DAOException;
 import dao.MemberDAO;
 import dao.ReturnDAO;
 
@@ -31,8 +33,8 @@ public class SearchServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		String action = request.getParameter("action");
-		System.out.println("ReturnBtnServlet　：　action = " + action);
+
+		Connection con = null;
 
 		String strMember_Id = request.getParameter("member_Id");
 		//System.out.println("ReturnBtnServlet　：　title準備");
@@ -47,25 +49,68 @@ public class SearchServlet extends HttpServlet {
 
 		try {
 			System.out.println("Rental_due_dateのtryに入ったよ");
-			if(action.equals("s_member"))
+			if(detail_Id == 0 )
 			{
-				System.out.println("s_member入場");
 
-
-				TitleBean title = ReturnDAO.Title(detail_Id, id);
-				
-				System.out.println("servetに帰ってきたtitle" + title);
-
-				Rental_due_dateBean rental_due_date = ReturnDAO.Rental_due_date(id);
-				
-				System.out.println("servetに帰ってきたrental_due_date" + rental_due_date);
-
-				String page = "/return/returnConfirm.jsp";
+				System.out.println("returns入場");
+				List<ReturnBean> findMemberId = MemberDAO.findMemberId(member_Id);
+				System.out.println("returnList = " + findMemberId);
+				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
-				System.out.println("confirm退場");
+				System.out.println("returns処理終了");
 				return;
 			}
 
-	}
+			if(member_Id == 0 )
+			{
 
+				System.out.println("returns入場");
+				List<ReturnBean> findDetailId = MemberDAO.findDetailId(detail_Id);
+				System.out.println("returnList = " + findDetailId);
+				String page = "/return/return.jsp";
+				gotoPage(request, response, page);
+				System.out.println("returns処理終了");
+				return;
+			}
+
+			if(detail_Id == 0 && member_Id == 0) {
+				System.out.println("returns入場");
+				List<ReturnBean> findAll = ReturnDAO.findAll();
+				System.out.println("returnList = " + findAll);
+				String page = "/return/return.jsp";
+				gotoPage(request, response, page);
+				System.out.println("returns処理終了");
+				return;
+			}
+
+
+		} catch (DAOException e) {
+			request.setAttribute("errorMessage", "エラー発生");
+			gotoPage(request, response, "/login.jsp");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			try {
+				if (con != null) {
+					Common.close(con);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				request.setAttribute("errorMessage", "システムエラー発生。ログを確認してください！");
+				gotoPage(request, response, "/Error.jsp");
+			}
+			}
+			System.out.println("try終わったよ");
+		}
+
+	private void gotoPage(HttpServletRequest request,
+			HttpServletResponse response, String page) throws ServletException,
+			IOException {
+		RequestDispatcher rd = request.getRequestDispatcher(page);
+		rd.forward(request, response);
+	}
 }
+
+
