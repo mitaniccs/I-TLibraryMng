@@ -43,17 +43,18 @@ public class ReturnServlet extends HttpServlet {
 			{
 				System.out.println("資料返却画面のサーブレット突入");
 				List<ReturnBean> findAll = ReturnDAO.findAll();
-				//セッション保管完了
-				session.setAttribute("rentalList", findAll);
+				request.setAttribute("rentalList", findAll);
+				//セッション保管完了(rentalList)
+				//ReturnBean findById = ReturnDAO.findBymemberId();
+				request.setAttribute("detail_Id", findAll);
 				System.out.println("資料返却：リストのセッション保管完了");
-				System.out.println("findAll = " + findAll);
-				System.out.println("test ReturnBeanのdetail_Id取得" +
-					session.getAttribute("rentalList.detail_Id"));
+				//System.out.println("findAll = " + findAll);
+				System.out.println("test ReturnListのReturnBean[0]取得 :"   +
+					session.getAttribute("rentalList.ReturnBean[0]"));
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
 				System.out.println("資料返却画面のサーブレット脱出");
 				return;
-
 			}
 
 			if(action.equals("confirm"))

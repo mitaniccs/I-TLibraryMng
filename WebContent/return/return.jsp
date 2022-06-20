@@ -27,14 +27,14 @@
 				<td>返却</td>
 			</tr>
 
-			<c:forEach items="${rentalList}" var="detail">
+			<c:forEach items="${rentalList}" var="d">
 			<tr style="background:white">
-				<td>${detail.member_Id }</td>
-				<td>${detail.detail_Id }</td>
-				<td>${detail.rental_date}</td>
-				<td>${detail.rental_due_date }</td>
+				<td>${d.member_Id }</td>
+				<td>${d.detail_Id }</td>
+				<td>${d.rental_date}</td>
+				<td>${d.rental_due_date }</td>
 				<td>
-					<a class="btn" href="/I-TLibraryMng/ReturnServlet?action=confirm?detail_Id=${detail.detail_Id}?member_Id=${detail.member_Id}">
+					<a class="btn" href='/ReturnBtnServlet?action=confirm&id=${d.id}&member_Id=${d.member_Id}&detail_Id=${d.detail_Id}'>
 					 返却 </a></td>
 			</tr>
 			</c:forEach>

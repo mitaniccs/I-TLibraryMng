@@ -36,8 +36,7 @@ public class ReturnDAO {
 		return conn;
 	}
 
-	//資料返却画面
-	//	全件検索
+	//資料返却画面(全件検索)
 	public static List<ReturnBean> findAll() throws DAOException{
 		System.out.println("資料返却画面メソッド()メソッド入場");
 
@@ -139,7 +138,7 @@ public class ReturnDAO {
 		System.out.println("update()メソッド退場");
 	}
 
-//	資料返却履歴画面
+	//資料返却履歴画面
 	public static List<ReturnBean> findAllResult() throws DAOException{
 		System.out.println("bookList()メソッド入場");
 
@@ -164,7 +163,7 @@ public class ReturnDAO {
 
 				ReturnBean returnBean = new ReturnBean(detail_Id, member_Id, rental_date,
 						rental_due_date, returned_date);
-				System.out.println(returnBean);
+				//System.out.println(returnBean);
 				resultList.add(returnBean); //リストに追加
 			}
 		} catch (Exception e1) {
@@ -195,5 +194,69 @@ public class ReturnDAO {
 		System.out.println("bookList()メソッド退場");
 		return resultList; //リストをリターン
 	}
+//
+//	public static ReturnBean findBymemberId() {
+//		System.out.println("memberId獲得用メソッド()入場");
+//		ReturnBean member_Id = new ReturnBean();
+//		Connection conn = null; //db接続
+//		PreparedStatement pstmt = null; //sql実行
+//		ResultSet rs = null; //結果セット
+//		try {
+//			conn = getConnection(); //db接続Connectionリターン
+//			System.out.println("findBymemberIdメソッド内　getConnection()成功");
+//			String sql =
+//					"select member_Id from rentalTbl ";
+//			pstmt = conn.prepareStatement(sql);
+//			rs=pstmt.executeQuery();
+//			while(rs.next()) { //1レコード読み込み //get資料型（"フィールド名")
+////				int id = rs.getInt("id");
+//				int detail_Id = rs.getInt("detail_id");
+//				int member_Id = rs.getInt("member_id");
+//				Date rental_date = rs.getDate("rental_date");
+//				Date rental_due_date = rs.getDate("rental_due_date");
+//
+//
+//				ReturnBean returnBean =
+//						new ReturnBean(detail_Id, member_Id, rental_date, rental_due_date);
+//				//以下２行確認用
+////				ReturnBean returnBean =
+////						new ReturnBean(detail_Id, member_Id);
+//
+//
+//				System.out.println(returnBean);
+//				list.add(returnBean); //リストに追加
+//				System.out.println("list = " + list);
+//			}
+//		} catch (Exception e1) {
+//			e1.printStackTrace();
+//			throw new DAOException("リストの取得に失敗しました。");
+//		} finally {
+//			//			トレースしやすくするため
+//			try {
+//				if(rs != null) rs.close();
+//			} catch (Exception e2) {
+//				e2.printStackTrace();
+//				throw new DAOException("ResulutSetオブジェクトの開放に失敗しました。");
+//
+//			}
+//			try {
+//				if(pstmt != null) pstmt.close();
+//			} catch(Exception e3) {
+//				e3.printStackTrace();
+//				throw new DAOException("PreparedStatementオブジェクトの開放に失敗しました。");
+//			}
+//			try {
+//				if(conn != null) conn.close();
+//			} catch (Exception e4) {
+//				e4.printStackTrace();
+//				throw new DAOException("Connectionオブジェクトの開放に失敗しました。");
+//			}
+//		}
+//		System.out.println("list()メソッド退場");
+//		System.out.println("");
+//		System.out.println("list =  " + list);
+//		return list; //リストをリターン
+//		return null;
+//	}
 
 }
