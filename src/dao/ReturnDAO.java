@@ -355,4 +355,129 @@ public class ReturnDAO {
 		return resultList; //リストをリターン
 	}
 
+	// 資料返却画面での１件検索
+	public List<ReturnBean> findOnly(String detail_Id, String member_Id) throws DAOException{
+		System.out.println("findOnly()メソッド入場");
+		List<ReturnBean> searchOnly = new ArrayList<>();
+		Connection conn = null; //db接続
+		PreparedStatement pstmt = null; //sql実行
+		ResultSet rs = null; //結果セット
+		try {
+			conn = getConnection(); //db接続Connectionリターン
+
+			String sql ="select * from rentalTbl where detail_id = ? and member_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, detail_Id);
+			pstmt.setString(2, member_Id);
+			rs=pstmt.executeQuery();
+			while(rs.next())
+			{ //1レコード読み込み //get資料型（"フィールド名")
+				int id = rs.getInt("id");
+				int detail_id = rs.getInt("detail_id");
+				int member_id = rs.getInt("member_id");
+				String rental_date = rs.getString("rental_date");
+				String rental_due_date = rs.getString("rental_due_date");
+
+
+				ReturnBean returnBean =
+						new ReturnBean(id, detail_id, member_id, rental_date, rental_due_date);
+				//以下２行確認用
+//				ReturnBean returnBean =
+//						new ReturnBean(detail_Id, member_Id);
+
+				System.out.println(returnBean);
+
+				searchOnly.add(returnBean); //リストに追加
+			}
+			System.out.println("FindOnly()メソッド退場");
+			return searchOnly;
+
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			throw new DAOException("リストの取得に失敗しました。");
+		} finally {
+			//			トレースしやすくするため
+			try {
+				if(rs != null) rs.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+				throw new DAOException("ResulutSetオブジェクトの開放に失敗しました。");
+			}
+			try {
+				if(pstmt != null) pstmt.close();
+			} catch(Exception e3) {
+				e3.printStackTrace();
+				throw new DAOException("PreparedStatementオブジェクトの開放に失敗しました。");
+			}
+			try {
+				if(conn != null) conn.close();
+			} catch (Exception e4) {
+				e4.printStackTrace();
+				throw new DAOException("Connectionオブジェクトの開放に失敗しました。");
+			}
+		}
+	}
+
+	// 資料返却履歴画面での１件検索
+	public List<ReturnBean> findOnlyResult(String detail_Id, String member_Id) throws DAOException{
+		System.out.println("findOnlyResult()メソッド入場");
+		List<ReturnBean> resultOnly = new ArrayList<>();
+		Connection conn = null; //db接続
+		PreparedStatement pstmt = null; //sql実行
+		ResultSet rs = null; //結果セット
+		try {
+			conn = getConnection(); //db接続Connectionリターン
+
+			String sql ="select * from rentalTbl where detail_id = ? and member_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, detail_Id);
+			pstmt.setString(2, member_Id);
+			rs=pstmt.executeQuery();
+			while(rs.next())
+			{ //1レコード読み込み //get資料型（"フィールド名")
+				int id = rs.getInt("id");
+				int detail_id = rs.getInt("detail_id");
+				int member_id = rs.getInt("member_id");
+				String rental_date = rs.getString("rental_date");
+				String rental_due_date = rs.getString("rental_due_date");
+				String returned_date = rs.getString("returned_date");
+
+				ReturnBean returnBean =
+						new ReturnBean(id, detail_id, member_id, rental_date, rental_due_date, returned_date);
+				//以下２行確認用
+//				ReturnBean returnBean =
+//						new ReturnBean(detail_Id, member_Id);
+
+				System.out.println(returnBean);
+
+				resultOnly.add(returnBean); //リストに追加
+			}
+			System.out.println("FindOnlyResult()メソッド退場");
+			return resultOnly;
+
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			throw new DAOException("リストの取得に失敗しました。");
+		} finally {
+			//			トレースしやすくするため
+			try {
+				if(rs != null) rs.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+				throw new DAOException("ResulutSetオブジェクトの開放に失敗しました。");
+			}
+			try {
+				if(pstmt != null) pstmt.close();
+			} catch(Exception e3) {
+				e3.printStackTrace();
+				throw new DAOException("PreparedStatementオブジェクトの開放に失敗しました。");
+			}
+			try {
+				if(conn != null) conn.close();
+			} catch (Exception e4) {
+				e4.printStackTrace();
+				throw new DAOException("Connectionオブジェクトの開放に失敗しました。");
+			}
+		}
+	}
 }
