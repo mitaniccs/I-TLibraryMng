@@ -86,7 +86,7 @@ public class BookDAO {
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 
-			String sql ="select * from rentalTbl where detail_id = ?";
+			String sql ="select * from rentalTbl where returned_date is not null && detail_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, detail_Id);
 			rs=pstmt.executeQuery();
@@ -149,7 +149,7 @@ public class BookDAO {
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 
-			String sql = "select * from rentalTbl where detail_id = ?" ;  //order by rental_due_date DESC;
+			String sql = "select * from rentalTbl where returned_date is not null && detail_id = ?" ;  //order by rental_due_date DESC;
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, Detail_Id);
 			rs=pstmt.executeQuery();
