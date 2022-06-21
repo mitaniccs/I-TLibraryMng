@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.ReturnBean;
 import dao.BookDAO;
@@ -36,7 +37,7 @@ public class SearchServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		Connection con = null;
-
+		HttpSession session = request.getSession(false);
 		String strMember_Id = request.getParameter("member_Id");
 		System.out.println("searchservlet  strMember_Id = " + strMember_Id);
 
@@ -55,6 +56,7 @@ public class SearchServlet extends HttpServlet {
 				System.out.println("returns入場");
 				List<ReturnBean> findMemberId = MemberDAO.findMemberId(member_Id);
 				System.out.println("returnList = " + findMemberId);
+				session.setAttribute("returnList", findMemberId);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
 				System.out.println("returns処理終了");
@@ -67,6 +69,7 @@ public class SearchServlet extends HttpServlet {
 				System.out.println("returns入場");
 				List<ReturnBean> findDetailId = BookDAO.findDetailId(detail_Id);
 				System.out.println("returnList = " + findDetailId);
+				session.setAttribute("returnList", findDetailId);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
 				System.out.println("returns処理終了");
@@ -77,6 +80,7 @@ public class SearchServlet extends HttpServlet {
 				System.out.println("returns入場");
 				List<ReturnBean> findAll = ReturnDAO.findAll();
 				System.out.println("returnList = " + findAll);
+				session.setAttribute("returnList", findAll);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
 				System.out.println("returns処理終了");
@@ -87,6 +91,7 @@ public class SearchServlet extends HttpServlet {
 				System.out.println("returns入場");
 				List<ReturnBean> findOnly = ReturnDAO.findOnly(member_Id, detail_Id);
 				System.out.println("returnList = " + findOnly);
+				session.setAttribute("returnList", findOnly);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
 				System.out.println("returns処理終了");
