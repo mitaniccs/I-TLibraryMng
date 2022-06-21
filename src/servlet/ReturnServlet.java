@@ -80,11 +80,7 @@ public class ReturnServlet extends HttpServlet {
 
 				//戻る画面に遷移（資料返却確認画面以外）
 			if(action.equals("returnbtn")) {
-				gotoPage(request, response, "/../../WebContent/menu.jsp");
-			}
-
-			if(action.equals("returnbtn2")) {
-				gotoPage(request, response, "/../../WebContent/return.jsp");
+				gotoPage(request, response, "/../../WebContent/test.jsp");
 			}
 
 
