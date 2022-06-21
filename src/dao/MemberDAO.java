@@ -97,6 +97,8 @@ public class MemberDAO {
 
 				System.out.println(returnBean);
 
+				//re
+
 				searchMemList.add(returnBean); //リストに追加
 			}
 			System.out.println("FindMemberId()メソッド退場");
