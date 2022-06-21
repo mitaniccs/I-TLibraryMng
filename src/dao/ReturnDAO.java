@@ -365,7 +365,7 @@ public class ReturnDAO {
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 
-			String sql ="select * from rentalTbl where returned_date is not null && detail_id = ? and member_id = ?";
+			String sql ="select * from rentalTbl where returned_date is null && detail_id = ? and member_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, member_Id2);
 			pstmt.setInt(2, detail_Id2);
@@ -428,7 +428,7 @@ public class ReturnDAO {
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 
-			String sql ="select * from rentalTbl where returned_date is not null && detail_id = ? and member_id = ?";
+			String sql ="select * from rentalTbl where returned_date is null && detail_id = ? and member_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, strMember_Id);
 			pstmt.setString(2, strDetail_Id);
