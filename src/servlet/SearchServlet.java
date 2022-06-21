@@ -38,11 +38,16 @@ public class SearchServlet extends HttpServlet {
 
 		Connection con = null;
 		HttpSession session = request.getSession(false);
+
 		String strMember_Id = request.getParameter("member_Id");
-		System.out.println("searchservlet  strMember_Id = " + strMember_Id);
+		if(strMember_Id.isEmpty()) {
+			strMember_Id = "0";
+		}
 
 		String strDetail_Id = request.getParameter("detail_Id");
-		//System.out.println("ReturnBtnServlet　：　date準備");
+		if(strDetail_Id.isEmpty()) {
+			strDetail_Id = "0";
+		}
 
 		int member_Id = Integer.parseInt(strMember_Id);
 		//System.out.println("ReturnBtnServlet　：　title準備完了");

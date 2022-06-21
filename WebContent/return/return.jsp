@@ -45,7 +45,7 @@
 			</c:forEach>
 		</table>
 		<form>
-   			 <a class="btn" href="return/test.jsp">戻る</a>
+   			  <input type="button" onclick="location.href='/I-TLibraryMng/return/test.jsp'" value="戻る">
 		</form>
 	</div>
 </body>
