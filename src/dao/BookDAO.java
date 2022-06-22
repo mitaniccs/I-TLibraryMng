@@ -18,7 +18,7 @@ public class BookDAO {
 		Connection conn = null;
 
 		try {
-			System.out.println("BookDAOのgetConnection()メソッド入場");
+			//System.out.println("BookDAOのgetConnection()メソッド入場");
 			//JDBCドライバの登録
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			//URL、ユーザー名、パスワード
@@ -26,12 +26,12 @@ public class BookDAO {
 			final String user ="user";
 			final String password = "user";
 			conn = DriverManager.getConnection(url, user, password);
-			System.out.println(conn);
-			System.out.println("BookDAOのgetConnection()メソッド退場");
+			//System.out.println(conn);
+			//System.out.println("BookDAOのgetConnection()メソッド退場");
 		} catch (Exception e) {
 			throw new DAOException("接続に失敗しました。");
 		}
-		System.out.println("getConnection()メソッド退場");
+		//System.out.println("getConnection()メソッド退場");
 		return conn;
 	}
 
@@ -101,11 +101,9 @@ public class BookDAO {
 
 				ReturnBean returnBean =
 						new ReturnBean(id, detail_id, member_Id, rental_date, rental_due_date);
-				//以下２行確認用
-//				ReturnBean returnBean =
-//						new ReturnBean(detail_Id, member_Id);
 
-				System.out.println(returnBean);
+
+				System.out.println("returnbeanがnullかnullでないか" + returnBean);
 
 				searchDetail.add(returnBean); //リストに追加
 			}

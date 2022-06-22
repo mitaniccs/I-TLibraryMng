@@ -30,7 +30,7 @@ public class ReturnDAO {
 			//		データベースへの接続
 			conn = DriverManager.getConnection(url, user, pass);
 			System.out.println(conn);
-			System.out.println("getConnection()メソッド退場");
+			//System.out.println("getConnection()メソッド退場");
 		} catch(Exception e) {
 			throw new DAOException("接続に失敗しました。");
 		}
@@ -47,7 +47,7 @@ public class ReturnDAO {
 		ResultSet rs = null; //結果セット
 		try {
 			conn = getConnection(); //db接続Connectionリターン
-			System.out.println("findAllメソッド内　getConnection()成功");
+			//System.out.println("findAllメソッド内　getConnection()成功");
 			//returned_date部分がnull以外のモノだけ表示するため
 			String sql ="select id, detail_id, member_id, rental_date, rental_due_date "
 					+ "from rentalTbl where returned_date is null";
@@ -68,7 +68,7 @@ public class ReturnDAO {
 //				ReturnBean returnBean =
 //						new ReturnBean(detail_Id, member_Id);
 
-				System.out.println(returnBean);
+				//System.out.println(returnBean);
 
 				list.add(returnBean); //リストに追加
 			}
@@ -97,8 +97,8 @@ public class ReturnDAO {
 				throw new DAOException("Connectionオブジェクトの開放に失敗しました。");
 			}
 		}
-		System.out.println("list = " + list);
-		System.out.println("findAll()メソッド退場");
+		//System.out.println("list = " + list);
+		//System.out.println("findAll()メソッド退場");
 		return list; //リストをリターン
 	}
 

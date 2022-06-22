@@ -18,8 +18,11 @@
 				<p>会員ID：<input type="search" name="member_Id"></p>
 				<p>資料ID：<input type="search" name="detail_Id">
 					<input type="submit" value="検索"></p>
+					<p>${non_list_err}</p>
 			</form>
 		</div>
+
+
 		<table border="1" cellpadding="2" cellspace="0"
 			 style="margin-bottom:20px; width:95%; text-align:center">
 			<tr style="background:#000088; color:white">

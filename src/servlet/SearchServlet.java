@@ -70,10 +70,16 @@ public class SearchServlet extends HttpServlet {
 
 			if(member_Id == 0 && detail_Id != 0)
 			{
-
-				System.out.println("returns入場");
+				session.setAttribute("non_list_err", "");
 				List<ReturnBean> findDetailId = BookDAO.findDetailId(detail_Id);
 				System.out.println("returnList = " + findDetailId);
+				//TODO　リストが空であればエラー文をsetAttribute
+				if(findDetailId == null || findDetailId.size() == 0){
+					session.setAttribute("non_list_err", "資料IDが存在しません。");
+					return;
+				}
+
+
 				session.setAttribute("returnList", findDetailId);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
