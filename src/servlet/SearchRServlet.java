@@ -19,9 +19,11 @@ import dao.DAOException;
 import dao.MemberDAO;
 import dao.ReturnDAO;
 
-@WebServlet("/SearchServlet/*")
-public class SearchServlet extends HttpServlet {
-
+/**
+ * Servlet implementation class SearchRServlet
+ */
+@WebServlet("/SearchRServlet/*")
+public class SearchRServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -59,10 +61,10 @@ public class SearchServlet extends HttpServlet {
 			{
 
 				System.out.println("returns入場");
-				List<ReturnBean> findMemberId = MemberDAO.findMemberId(member_Id);
+				List<ReturnBean> findMemberId = MemberDAO.findMemberResult(strMember_Id);
 				System.out.println("returnList = " + findMemberId);
 				session.setAttribute("returnList", findMemberId);
-				String page = "/return/return.jsp";
+				String page = "/return/returnResult.jsp";
 				gotoPage(request, response, page);
 				System.out.println("returns処理終了");
 				return;
@@ -70,18 +72,12 @@ public class SearchServlet extends HttpServlet {
 
 			if(member_Id == 0 && detail_Id != 0)
 			{
-				session.setAttribute("non_list_err", "");
-				List<ReturnBean> findDetailId = BookDAO.findDetailId(detail_Id);
+
+				System.out.println("returns入場");
+				List<ReturnBean> findDetailId = BookDAO.findDetailResult(strDetail_Id);
 				System.out.println("returnList = " + findDetailId);
-				//TODO　リストが空であればエラー文をsetAttribute
-				if(findDetailId == null || findDetailId.size() == 0){
-					session.setAttribute("non_list_err", "資料IDが存在しません。");
-					return;
-				}
-
-
 				session.setAttribute("returnList", findDetailId);
-				String page = "/return/return.jsp";
+				String page = "/return/returnResult.jsp";
 				gotoPage(request, response, page);
 				System.out.println("returns処理終了");
 				return;
@@ -89,10 +85,10 @@ public class SearchServlet extends HttpServlet {
 
 			if(detail_Id == 0 && member_Id == 0) {
 				System.out.println("returns入場");
-				List<ReturnBean> findAll = ReturnDAO.findAll();
+				List<ReturnBean> findAll = ReturnDAO.findAllResult();
 				System.out.println("returnList = " + findAll);
 				session.setAttribute("returnList", findAll);
-				String page = "/return/return.jsp";
+				String page = "/return/returnResult.jsp";
 				gotoPage(request, response, page);
 				System.out.println("returns処理終了");
 				return;
@@ -100,14 +96,15 @@ public class SearchServlet extends HttpServlet {
 
 			if(detail_Id != 0 && member_Id != 0) {
 				System.out.println("returns入場");
-				List<ReturnBean> findOnly = ReturnDAO.findOnly(member_Id, detail_Id);
+				List<ReturnBean> findOnly = ReturnDAO.findOnlyResult(strMember_Id, strDetail_Id);
 				System.out.println("returnList = " + findOnly);
 				session.setAttribute("returnList", findOnly);
-				String page = "/return/return.jsp";
+				String page = "/return/returnResult.jsp";
 				gotoPage(request, response, page);
 				System.out.println("returns処理終了");
 				return;
 			}
+
 
 		} catch (DAOException e) {
 			request.setAttribute("errorMessage", "エラー発生");
@@ -136,6 +133,5 @@ public class SearchServlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request, response);
 	}
+
 }
-
-

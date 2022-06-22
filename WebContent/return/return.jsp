@@ -14,12 +14,15 @@
 		<h2>資料返却画面</h2>
 		<div align="left" style="padding-left:40px">
 			<h3>検索条件</h3>
-			<form action="I-TLibraryMng/SearchServlet" method="POST">
-				<p>会員ID：<input type="search" name="memberID"></p>
-				<p>資料ID：<input type="search" name="articleID">
+			<form action="./SearchServlet" method="POST">
+				<p>会員ID：<input type="search" name="member_Id"></p>
+				<p>資料ID：<input type="search" name="detail_Id">
 					<input type="submit" value="検索"></p>
+					<p>${non_list_err}</p>
 			</form>
 		</div>
+
+
 		<table border="1" cellpadding="2" cellspace="0"
 			 style="margin-bottom:20px; width:95%; text-align:center">
 			<tr style="background:#000088; color:white">
@@ -44,8 +47,8 @@
 			</tr>
 			</c:forEach>
 		</table>
-		<form>
-   			 <a class="btn" href="return/test.jsp">戻る</a>
+		<form action="./ReturnServlet" method="POST">
+   			  <input type="submit" action="returnbtn" value="戻る">
 		</form>
 	</div>
 </body>

@@ -13,12 +13,12 @@ import bean.ReturnBean;
 public class BookDAO {
 //	資料返却確認画面、資料返却完了画面
 
-	private Connection getConnection() throws DAOException {
+	private static Connection getConnection() throws DAOException {
 		System.out.println("getConnection()メソッド入場");
 		Connection conn = null;
 
 		try {
-			System.out.println("BookDAOのgetConnection()メソッド入場");
+			//System.out.println("BookDAOのgetConnection()メソッド入場");
 			//JDBCドライバの登録
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			//URL、ユーザー名、パスワード
@@ -26,12 +26,12 @@ public class BookDAO {
 			final String user ="user";
 			final String password = "user";
 			conn = DriverManager.getConnection(url, user, password);
-			System.out.println(conn);
-			System.out.println("BookDAOのgetConnection()メソッド退場");
+			//System.out.println(conn);
+			//System.out.println("BookDAOのgetConnection()メソッド退場");
 		} catch (Exception e) {
 			throw new DAOException("接続に失敗しました。");
 		}
-		System.out.println("getConnection()メソッド退場");
+		//System.out.println("getConnection()メソッド退場");
 		return conn;
 	}
 
@@ -77,18 +77,18 @@ public class BookDAO {
 	}
 
 	// 資料返却画面での検索
-	public List<ReturnBean> findBookId(String detail_Id) throws DAOException{
-		System.out.println("findBookId()メソッド入場");
-		List<ReturnBean> searchBook = new ArrayList<>();
+	public static List<ReturnBean> findDetailId(int detail_Id) throws DAOException{
+		System.out.println("findDetailId()メソッド入場");
+		List<ReturnBean> searchDetail = new ArrayList<>();
 		Connection conn = null; //db接続
 		PreparedStatement pstmt = null; //sql実行
 		ResultSet rs = null; //結果セット
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 
-			String sql ="select * from rentalTbl where id = ?";
+			String sql ="select * from rentalTbl where returned_date is null && detail_id = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, detail_Id);
+			pstmt.setInt(1, detail_Id);
 			rs=pstmt.executeQuery();
 			while(rs.next())
 			{ //1レコード読み込み //get資料型（"フィールド名")
@@ -101,16 +101,14 @@ public class BookDAO {
 
 				ReturnBean returnBean =
 						new ReturnBean(id, detail_id, member_Id, rental_date, rental_due_date);
-				//以下２行確認用
-//				ReturnBean returnBean =
-//						new ReturnBean(detail_Id, member_Id);
 
-				System.out.println(returnBean);
 
-				searchBook.add(returnBean); //リストに追加
+				System.out.println("returnbeanがnullかnullでないか" + returnBean);
+
+				searchDetail.add(returnBean); //リストに追加
 			}
 			System.out.println("FindBookId()メソッド退場");
-			return searchBook;
+			return searchDetail;
 
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -139,8 +137,8 @@ public class BookDAO {
 	}
 
 //	資料返却履歴画面での検索
-	public List<ReturnBean> findBookResult(String detail_Id) throws DAOException{
-		System.out.println("findBookResult()メソッド入場");
+	public static List<ReturnBean> findDetailResult(String Detail_Id) throws DAOException{
+		System.out.println("findDetailResult()メソッド入場");
 
 		List<ReturnBean> resultBook = new ArrayList<>();
 		Connection conn = null; //db接続
@@ -149,9 +147,9 @@ public class BookDAO {
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 
-			String sql = "select * from rentalTbl where id = ?" ;  //order by rental_due_date DESC;
+			String sql = "select * from rentalTbl where returned_date is null && detail_id = ?" ;  //order by rental_due_date DESC;
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, detail_Id);
+			pstmt.setString(1, Detail_Id);
 			rs=pstmt.executeQuery();
 			while(rs.next()) { //1レコード読み込み //get資料型（"フィールド名")
 				int id = rs.getInt("id");
@@ -191,7 +189,7 @@ public class BookDAO {
 				throw new DAOException("Connectionオブジェクトの開放に失敗しました。");
 			}
 		}
-		System.out.println("findBookResult()メソッド退場");
+		System.out.println("findDetailResult()メソッド退場");
 		return resultBook; //リストをリターン
 	}
 }
