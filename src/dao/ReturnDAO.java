@@ -30,7 +30,7 @@ public class ReturnDAO {
 			//		データベースへの接続
 			conn = DriverManager.getConnection(url, user, pass);
 			System.out.println(conn);
-			System.out.println("getConnection()メソッド退場");
+			//System.out.println("getConnection()メソッド退場");
 		} catch(Exception e) {
 			throw new DAOException("接続に失敗しました。");
 		}
@@ -47,7 +47,7 @@ public class ReturnDAO {
 		ResultSet rs = null; //結果セット
 		try {
 			conn = getConnection(); //db接続Connectionリターン
-			System.out.println("findAllメソッド内　getConnection()成功");
+			//System.out.println("findAllメソッド内　getConnection()成功");
 			//returned_date部分がnull以外のモノだけ表示するため
 			String sql ="select id, detail_id, member_id, rental_date, rental_due_date "
 					+ "from rentalTbl where returned_date is null";
@@ -68,7 +68,7 @@ public class ReturnDAO {
 //				ReturnBean returnBean =
 //						new ReturnBean(detail_Id, member_Id);
 
-				System.out.println(returnBean);
+				//System.out.println(returnBean);
 
 				list.add(returnBean); //リストに追加
 			}
@@ -97,8 +97,8 @@ public class ReturnDAO {
 				throw new DAOException("Connectionオブジェクトの開放に失敗しました。");
 			}
 		}
-		System.out.println("list = " + list);
-		System.out.println("findAll()メソッド退場");
+		//System.out.println("list = " + list);
+		//System.out.println("findAll()メソッド退場");
 		return list; //リストをリターン
 	}
 
@@ -356,7 +356,7 @@ public class ReturnDAO {
 	}
 
 	// 資料返却画面での１件検索
-	public List<ReturnBean> findOnly(String detail_Id, String member_Id) throws DAOException{
+	public static List<ReturnBean> findOnly(int member_Id2, int detail_Id2) throws DAOException{
 		System.out.println("findOnly()メソッド入場");
 		List<ReturnBean> searchOnly = new ArrayList<>();
 		Connection conn = null; //db接続
@@ -365,10 +365,10 @@ public class ReturnDAO {
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 
-			String sql ="select * from rentalTbl where detail_id = ? and member_id = ?";
+			String sql ="select * from rentalTbl where returned_date is null && detail_id = ? and member_id = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, detail_Id);
-			pstmt.setString(2, member_Id);
+			pstmt.setInt(1, member_Id2);
+			pstmt.setInt(2, detail_Id2);
 			rs=pstmt.executeQuery();
 			while(rs.next())
 			{ //1レコード読み込み //get資料型（"フィールド名")
@@ -419,7 +419,7 @@ public class ReturnDAO {
 	}
 
 	// 資料返却履歴画面での１件検索
-	public List<ReturnBean> findOnlyResult(String detail_Id, String member_Id) throws DAOException{
+	public static List<ReturnBean> findOnlyResult(String strMember_Id, String strDetail_Id) throws DAOException{
 		System.out.println("findOnlyResult()メソッド入場");
 		List<ReturnBean> resultOnly = new ArrayList<>();
 		Connection conn = null; //db接続
@@ -428,10 +428,10 @@ public class ReturnDAO {
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 
-			String sql ="select * from rentalTbl where detail_id = ? and member_id = ?";
+			String sql ="select * from rentalTbl where returned_date is null && detail_id = ? and member_id = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, detail_Id);
-			pstmt.setString(2, member_Id);
+			pstmt.setString(1, strMember_Id);
+			pstmt.setString(2, strDetail_Id);
 			rs=pstmt.executeQuery();
 			while(rs.next())
 			{ //1レコード読み込み //get資料型（"フィールド名")
