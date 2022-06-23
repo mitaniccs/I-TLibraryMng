@@ -43,6 +43,8 @@ public class SearchServlet extends HttpServlet {
 		if(strMember_Id.isEmpty()) {
 			strMember_Id = "0";
 		}
+		if(strMember_Id != "[0~9]{1,}") {}//TODOここから
+
 
 		String strDetail_Id = request.getParameter("detail_Id");
 		if(strDetail_Id.isEmpty()) {
@@ -57,55 +59,66 @@ public class SearchServlet extends HttpServlet {
 		try {
 			if(detail_Id == 0 && member_Id != 0)
 			{
-
-				System.out.println("returns入場");
+				System.out.println("if(detail_Id == 0 && member_Id != 0)");
+				session.setAttribute("non_list_err", "");
 				List<ReturnBean> findMemberId = MemberDAO.findMemberId(member_Id);
 				System.out.println("returnList = " + findMemberId);
 				session.setAttribute("returnList", findMemberId);
+				if(findMemberId == null || findMemberId.size() == 0){
+					System.out.println("detail_Idが見つからなかったときの処理");
+					request.setAttribute("non_list_err", "会員IDが存在しません。");
+					String page = "/return/return.jsp";
+					gotoPage(request, response, page);
+					return ;
+				}
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
-				System.out.println("returns処理終了");
 				return;
 			}
 
 			if(member_Id == 0 && detail_Id != 0)
 			{
+				System.out.println("if(member_Id == 0 && detail_Id != 0)");
 				session.setAttribute("non_list_err", "");
 				List<ReturnBean> findDetailId = BookDAO.findDetailId(detail_Id);
 				System.out.println("returnList = " + findDetailId);
-				//TODO　リストが空であればエラー文をsetAttribute
-				if(findDetailId == null || findDetailId.size() == 0){
-					session.setAttribute("non_list_err", "資料IDが存在しません。");
-					return;
-				}
-
-
 				session.setAttribute("returnList", findDetailId);
+				if(findDetailId == null || findDetailId.size() == 0){
+					System.out.println("member_Idが見つからなかったときの処理");
+					request.setAttribute("non_list_err", "資料IDが存在しません。");
+					String page = "/return/return.jsp";
+					gotoPage(request, response, page);
+					return ;
+				}
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
-				System.out.println("returns処理終了");
 				return;
 			}
 
 			if(detail_Id == 0 && member_Id == 0) {
-				System.out.println("returns入場");
+				System.out.println("if(detail_Id == 0 && member_Id == 0)");
 				List<ReturnBean> findAll = ReturnDAO.findAll();
 				System.out.println("returnList = " + findAll);
 				session.setAttribute("returnList", findAll);
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
-				System.out.println("returns処理終了");
 				return;
 			}
 
 			if(detail_Id != 0 && member_Id != 0) {
-				System.out.println("returns入場");
+				System.out.println("if(detail_Id != 0 && member_Id != 0)");
 				List<ReturnBean> findOnly = ReturnDAO.findOnly(member_Id, detail_Id);
 				System.out.println("returnList = " + findOnly);
 				session.setAttribute("returnList", findOnly);
+				if(findOnly == null || findOnly.size() == 0){
+					System.out.println("一致する会員ID、資料IDが見つからなかったときの処理");
+					request.setAttribute("non_list_err", "一致する会員ID、資料IDが存在しません。");
+					String page = "/return/return.jsp";
+					gotoPage(request, response, page);
+					return ;
+				}
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
-				System.out.println("returns処理終了");
 				return;
 			}
 

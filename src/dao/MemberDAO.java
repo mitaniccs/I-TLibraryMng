@@ -69,6 +69,7 @@ public class MemberDAO {
 	// 資料返却画面での検索
 	public static List<ReturnBean> findMemberId(int member_Id) throws DAOException{
 		System.out.println("findMemberId()メソッド入場");
+		
 		List<ReturnBean> searchMemList = new ArrayList<>();
 		Connection conn = null; //db接続
 		PreparedStatement pstmt = null; //sql実行

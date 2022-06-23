@@ -29,7 +29,7 @@ public class ReturnDAO {
 			final String pass = "user";
 			//		データベースへの接続
 			conn = DriverManager.getConnection(url, user, pass);
-			System.out.println(conn);
+			//System.out.println(conn);
 			//System.out.println("getConnection()メソッド退場");
 		} catch(Exception e) {
 			throw new DAOException("接続に失敗しました。");
@@ -39,7 +39,7 @@ public class ReturnDAO {
 
 	//資料返却画面 全件検索
 	public static List<ReturnBean> findAll() throws DAOException{
-		System.out.println("findAllメソッド()入場");
+		//System.out.println("findAllメソッド()入場");
 
 		List<ReturnBean> list = new ArrayList<>();
 		Connection conn = null; //db接続
@@ -104,7 +104,7 @@ public class ReturnDAO {
 
 	//返却ボタンが押されたときに名前を取得するDAO
 	public static NameBean Name(int member_Id,int id) throws DAOException{
-		System.out.println("Name()メソッド入場");
+		//System.out.println("Name()メソッド入場");
 		//ReturnBean returnBean = null;
 		NameBean name = null;
 		List<NameBean> list = new ArrayList<>();
@@ -126,7 +126,7 @@ public class ReturnDAO {
 				NameBean nameBean = new NameBean(name1);
 				list.add(nameBean); //リストに追加
 			}
-			System.out.println("name = " + list);
+			//System.out.println("name = " + list);
 			//idがよくない。プライマリーキーであるため
 			name = list.get(id-1);
 		} catch (Exception e1) {
@@ -152,13 +152,13 @@ public class ReturnDAO {
 					throw new DAOException("Connectionオブジェクトの開放に失敗");
 			}
 		}
-		System.out.println("getConnection()メソッド退場");
+		//System.out.println("getConnection()メソッド退場");
 		return name;
 	}
 
 	//返却ボタンが押されたときに資料名を取得するDAO
 	public static TitleBean Title(int detail_Id, int id) throws DAOException{
-		System.out.println("Title()メソッド入場");
+		//System.out.println("Title()メソッド入場");
 		//ReturnBean returnBean = null;
 		TitleBean title = null;
 		List<TitleBean> list = new ArrayList<>();
@@ -182,7 +182,7 @@ public class ReturnDAO {
 				TitleBean titleBean = new TitleBean(title1);
 				list.add(titleBean); //リストに追加
 			}
-			System.out.println("title = " + list);
+			//System.out.println("title = " + list);
 			//idがよくない。プライマリーキーであるため
 			title = list.get(id-1);
 		} catch (Exception e1) {
@@ -208,7 +208,7 @@ public class ReturnDAO {
 					throw new DAOException("Connectionオブジェクトの開放に失敗");
 			}
 		}
-		System.out.println("getConnection()メソッド退場");
+		//System.out.println("getConnection()メソッド退場");
 		return title;
 	}
 
@@ -365,12 +365,13 @@ public class ReturnDAO {
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 
-			String sql ="select * from rentalTbl where returned_date is null && detail_id = ? and member_id = ?";
+			String sql ="select * from rentalTbl where returned_date is null && member_id = ? and detail_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, member_Id2);
 			pstmt.setInt(2, detail_Id2);
 			rs=pstmt.executeQuery();
 			while(rs.next())
+
 			{ //1レコード読み込み //get資料型（"フィールド名")
 				int id = rs.getInt("id");
 				int detail_id = rs.getInt("detail_id");
@@ -381,15 +382,12 @@ public class ReturnDAO {
 
 				ReturnBean returnBean =
 						new ReturnBean(id, detail_id, member_id, rental_date, rental_due_date);
-				//以下２行確認用
-//				ReturnBean returnBean =
-//						new ReturnBean(detail_Id, member_Id);
 
 				System.out.println(returnBean);
 
 				searchOnly.add(returnBean); //リストに追加
 			}
-			System.out.println("FindOnly()メソッド退場");
+			System.out.println("FindOnly()メソッド退場　返却リスト（searchOnly） = " + searchOnly);
 			return searchOnly;
 
 		} catch (Exception e1) {
@@ -448,7 +446,7 @@ public class ReturnDAO {
 //				ReturnBean returnBean =
 //						new ReturnBean(detail_Id, member_Id);
 
-				System.out.println(returnBean);
+				//System.out.println(returnBean);
 
 				resultOnly.add(returnBean); //リストに追加
 			}
