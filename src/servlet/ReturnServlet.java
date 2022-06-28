@@ -53,7 +53,6 @@ public class ReturnServlet extends HttpServlet {
 			//ReturnDAO returnDAO = new ReturnDAO();
 			if(action.equals("returns"))//
 			{
-
 				System.out.println("returns入場");
 				List<ReturnBean> findAll = ReturnDAO.findAll();
 				//findAllをsession保管す
@@ -68,7 +67,6 @@ public class ReturnServlet extends HttpServlet {
 
 			if(action.equals("result"))
 			{
-				System.out.println("result渡せた");
 				List<ReturnBean> findAllResult = ReturnDAO.findAllResult();
 				//findAllをsession保管する
 				session.setAttribute("returnList", findAllResult);
@@ -79,11 +77,26 @@ public class ReturnServlet extends HttpServlet {
 				return;
 			}
 
-				//戻る画面に遷移（資料返却確認画面以外）
+			//テスト画面に遷移（資料返却画面.資料返却履歴画面）
 			if(action.equals("returnbtn")) {
-				gotoPage(request, response, "./WebContent/test.jsp");
+				gotoPage(request, response, "/return/test.jsp");
 			}
 
+			//資料返却画面に遷移（資料返却確認画面。資料返却完了画面）
+			if(action.equals("returnbtnconfirm")) {
+				gotoPage(request, response, "/return/return.jsp");
+			}
+
+			if(action.equals("returndone")) {
+
+				List<ReturnBean> findAll = ReturnDAO.findAll();
+				//findAllをsession保管す
+				session.setAttribute("returnList", findAll);
+				String page = "/return/return.jsp";
+				gotoPage(request, response, page);
+
+				return;
+			}
 
 		} catch (DAOException e) {
 			request.setAttribute("errorMessage", "エラー発生");

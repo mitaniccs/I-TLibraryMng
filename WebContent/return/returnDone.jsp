@@ -15,7 +15,10 @@
 		<p style="font-weight:bolder">返却期限　:　<span>${rental_due_date.rental_due_date}</span></p>
 		<br><br><br>
 		<!--  <input type="submit" name="action" value="戻る">-->
-		<a href='/I-TLibraryMng/ReturnServlet?action=returns'>戻る</a>
+		<form action="./ReturnServlet" method="POST">
+			<input type="hidden" value="returndone" name="action">
+   			<input type="submit" value="戻る">
+		</form>
 	</div>
 </table>
 </body>

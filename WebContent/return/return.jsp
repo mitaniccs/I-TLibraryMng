@@ -40,15 +40,19 @@
 				<td>${detail.rental_date}</td>
 				<td>${detail.rental_due_date }</td>
 				<td>
-					<!--URLパラメータに2値入れられなかった。そもそもセッション保管されたIdを使うべき
-					<a class="btn" href="/onelibrary2/ReturnServlet?action=confirm?detail_Id=${detail.detail_Id}?member_Id=${detail.member_Id}">-->
-					<a class="btn" href="/I-TLibraryMng/ReturnBtnServlet?action=confirm&id=${detail.id}&detail_Id=${detail.detail_Id}&member_Id=${detail.member_Id}">返却 </a>
+					<form action="./ReturnBtnServlet" method="POST">
+						<input type="hidden" value="confirm" name="action">
+						<input type="hidden" value="${detail.id}" name="id">
+						<input type="hidden" value="${detail.detail_Id}" name="detail_Id">
+						<input type="hidden" value="${detail.member_Id}" name="member_Id">
+						<input type="submit" value="返却">
+					</form>
 				</td>
 			</tr>
 			</c:forEach>
 		</table>
 		<form action="./ReturnServlet" method="POST">
-			<input type="hidden" text="returnbtn" name="action">
+			<input type="hidden" value="returnbtn" name="action">
    			<input type="submit" value="戻る">
 		</form>
 	</div>

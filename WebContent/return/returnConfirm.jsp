@@ -18,8 +18,19 @@
 		<p style="font-weight:bolder">返却期限<span>${rental_due_date.rental_due_date}</span></p>
 		<!--  <input type="submit" name="action" value="返却">
 		<input type="submit" name="action" value="戻る">-->
-		<a href="/I-TLibraryMng/ReturnBtnServlet?action=done&id=${rental_due_date.id}&member_Id=0&detail_Id=0">返却</a>
-		<a href="/I-TLibraryMng/ReturnServlet?action=returns">戻る</a>
+		<!-- <a href="/I-TLibraryMng/ReturnBtnServlet?action=done&id=${rental_due_date.id}&member_Id=0&detail_Id=0">返却</a>
+		 -->
+		<form action="./ReturnBtnServlet" method="POST">
+			<input type="hidden" value="done" name="action">
+			<input type="hidden" value="${rental_due_date.id}" name="id">
+			<input type="hidden" value="0" name="detail_Id">
+			<input type="hidden" value="0" name="member_Id">
+			<input type="submit" value="返却">
+		</form>
+		<form action="./ReturnServlet" method="POST">
+			<input type="hidden" value="returnbtnconfirm" name="action">
+   			<input type="submit" value="戻る">
+		</form>
 	</div>
 </table>
 </body>
