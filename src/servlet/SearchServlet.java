@@ -22,7 +22,6 @@ import dao.ReturnDAO;
 @WebServlet("/SearchServlet/*")
 public class SearchServlet extends HttpServlet {
 
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doPost(request, response);
@@ -33,7 +32,7 @@ public class SearchServlet extends HttpServlet {
 
 		System.out.println("SearchServletのdoPost入場");
 		//数字の正規表現
-		String Number = "^[0-9]${1,}";//
+		String Number = "^[0-9]{1,100}";//
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
@@ -45,11 +44,12 @@ public class SearchServlet extends HttpServlet {
 		if(strMember_Id.isEmpty()) {
 			strMember_Id = "0";
 		}
-
+		//数字以外の文字の拒絶（正規表現）
 		if(strMember_Id.matches(Number)) {
-
+			//System.out.println("存在する会員IDが検索されたよ");
 		}else {
-			System.out.println("strMember_Id = " + strMember_Id);
+			//System.out.println("存在しない会員IDが検索されたよ");
+			//System.out.println("strMember_Id = " + strMember_Id);
 			request.setAttribute("non_list_err", "数字を入力してください");
 			String page = "/return/return.jsp";
 			gotoPage(request, response, page);
@@ -61,8 +61,10 @@ public class SearchServlet extends HttpServlet {
 			strDetail_Id = "0";
 		}
 		if(strDetail_Id.matches(Number)){
-
+			System.out.println("存在する資料IDが検索されたよ");
 		}else {
+			System.out.println("存在しない資料IDが検索されたよ");
+			System.out.println("strMember_Id = " + strMember_Id);
 			request.setAttribute("non_list_err", "数字を入力してください");
 			String page = "/return/return.jsp";
 			gotoPage(request, response, page);
@@ -70,20 +72,17 @@ public class SearchServlet extends HttpServlet {
 		}
 
 		int member_Id = Integer.parseInt(strMember_Id);
-		//System.out.println("ReturnBtnServlet　：　title準備完了");
 		int detail_Id = Integer.parseInt(strDetail_Id);
-		//System.out.println("ReturnBtnServlet　：　date準備完了");
 
 		try {
-			if(detail_Id == 0 && member_Id != 0)
+			if(detail_Id == 0 && member_Id != 0)//会員Idのみを検索したい場合の処理
 			{
 				System.out.println("if(detail_Id == 0 && member_Id != 0)");
 				session.setAttribute("non_list_err", "");
 				List<ReturnBean> findMemberId = MemberDAO.findMemberId(member_Id);
-				System.out.println("returnList = " + findMemberId);
 				session.setAttribute("returnList", findMemberId);
 				if(findMemberId == null || findMemberId.size() == 0){
-					System.out.println("detail_Idが見つからなかったときの処理");
+					System.out.println("member_Idが見つからなかったときの処理");
 					request.setAttribute("non_list_err", "会員IDが存在しません。");
 					String page = "/return/return.jsp";
 					gotoPage(request, response, page);
@@ -94,15 +93,15 @@ public class SearchServlet extends HttpServlet {
 				return;
 			}
 
-			if(member_Id == 0 && detail_Id != 0)
+			if(member_Id == 0 && detail_Id != 0)//資料IDを検索したい場合の処理
 			{
 				System.out.println("if(member_Id == 0 && detail_Id != 0)");
 				session.setAttribute("non_list_err", "");
 				List<ReturnBean> findDetailId = BookDAO.findDetailId(detail_Id);
-				System.out.println("returnList = " + findDetailId);
+				//System.out.println("returnList = " + findDetailId);
 				session.setAttribute("returnList", findDetailId);
 				if(findDetailId == null || findDetailId.size() == 0){
-					System.out.println("member_Idが見つからなかったときの処理");
+					System.out.println("detail_Idが見つからなかったときの処理");
 					request.setAttribute("non_list_err", "資料IDが存在しません。");
 					String page = "/return/return.jsp";
 					gotoPage(request, response, page);
@@ -116,17 +115,18 @@ public class SearchServlet extends HttpServlet {
 			if(detail_Id == 0 && member_Id == 0) {
 				System.out.println("if(detail_Id == 0 && member_Id == 0)");
 				List<ReturnBean> findAll = ReturnDAO.findAll();
-				System.out.println("returnList = " + findAll);
+				//System.out.println("returnList = " + findAll);
 				session.setAttribute("returnList", findAll);
+				request.setAttribute("non_list_err", "会員ID、資料IDの入力が無かったため全件検索しました");
 				String page = "/return/return.jsp";
 				gotoPage(request, response, page);
 				return;
 			}
 
-			if(detail_Id != 0 && member_Id != 0) {
+			if(detail_Id != 0 && member_Id != 0) {//両方検索
 				System.out.println("if(detail_Id != 0 && member_Id != 0)");
 				List<ReturnBean> findOnly = ReturnDAO.findOnly(member_Id, detail_Id);
-				System.out.println("returnList = " + findOnly);
+				//System.out.println("returnList = " + findOnly);
 				session.setAttribute("returnList", findOnly);
 				if(findOnly == null || findOnly.size() == 0){
 					System.out.println("一致する会員ID、資料IDが見つからなかったときの処理");
@@ -139,6 +139,7 @@ public class SearchServlet extends HttpServlet {
 				gotoPage(request, response, page);
 				return;
 			}
+			System.out.println("SearchServletのdoPost入場");//catchが無い場合
 
 		} catch (DAOException e) {
 			request.setAttribute("errorMessage", "エラー発生");
@@ -157,9 +158,9 @@ public class SearchServlet extends HttpServlet {
 				request.setAttribute("errorMessage", "システムエラー発生。ログを確認してください！");
 				gotoPage(request, response, "/Error.jsp");
 			}
-			}
-
 		}
+
+	}
 
 	private void gotoPage(HttpServletRequest request,
 			HttpServletResponse response, String page) throws ServletException,

@@ -19,6 +19,7 @@
 				<p>会員ID：<input type="search" name="member_Id"></p>
 				<p>資料ID：<input type="search" name="detail_Id">
 				<input type="submit" value="検索"></p>
+				<p>${non_list_err}</p>
 			</form>
 		</div>
 
@@ -42,8 +43,8 @@
 				</tr>
 			</c:forEach>
 		</table>
-	<form >
-   		<input type="button" onclick="location.href='/I-TLibraryMng/return/test.jsp'" value="戻る">
+	<form action="./ReturnServlet" method="POST">
+   		<input type="submit" action="returnbtn" value="戻る">
 	</form>
 	</div>
 </body>

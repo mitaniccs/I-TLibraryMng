@@ -103,7 +103,7 @@ public class BookDAO {
 						new ReturnBean(id, detail_id, member_Id, rental_date, rental_due_date);
 
 
-				System.out.println("returnbeanがnullかnullでないか" + returnBean);
+				//System.out.println("returnbeanがnullかnullでないか" + returnBean);
 
 				searchDetail.add(returnBean); //リストに追加
 			}
@@ -147,7 +147,7 @@ public class BookDAO {
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 
-			String sql = "select * from rentalTbl where returned_date is null && detail_id = ?" ;  //order by rental_due_date DESC;
+			String sql = "select * from rentalTbl where detail_id = ?" ;  //order by rental_due_date DESC;
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, Detail_Id);
 			rs=pstmt.executeQuery();

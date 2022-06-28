@@ -387,7 +387,7 @@ public class ReturnDAO {
 
 				searchOnly.add(returnBean); //リストに追加
 			}
-			System.out.println("FindOnly()メソッド退場　返却リスト（searchOnly） = " + searchOnly);
+			System.out.println("FindOnly()メソッド退場　");
 			return searchOnly;
 
 		} catch (Exception e1) {
@@ -426,7 +426,7 @@ public class ReturnDAO {
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 
-			String sql ="select * from rentalTbl where returned_date is null && detail_id = ? and member_id = ?";
+			String sql ="select * from rentalTbl where member_id = ? and detail_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, strMember_Id);
 			pstmt.setString(2, strDetail_Id);

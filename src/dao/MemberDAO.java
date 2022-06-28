@@ -69,7 +69,7 @@ public class MemberDAO {
 	// 資料返却画面での検索
 	public static List<ReturnBean> findMemberId(int member_Id) throws DAOException{
 		System.out.println("findMemberId()メソッド入場");
-		
+
 		List<ReturnBean> searchMemList = new ArrayList<>();
 		Connection conn = null; //db接続
 		PreparedStatement pstmt = null; //sql実行
@@ -96,7 +96,7 @@ public class MemberDAO {
 //				ReturnBean returnBean =
 //						new ReturnBean(detail_Id, member_Id);
 
-				System.out.println(returnBean);
+				//System.out.println(returnBean);
 
 				//re
 
@@ -142,7 +142,7 @@ public class MemberDAO {
 		try {
 			conn = getConnection(); //db接続Connectionリターン
 
-			String sql = "select * from rentalTbl where returned_date is null && member_id = ?" ;  //order by rental_due_date DESC;
+			String sql = "select * from rentalTbl where member_id = ?" ;  //order by rental_due_date DESC;
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, Member_Id);
 			rs=pstmt.executeQuery();
@@ -156,7 +156,7 @@ public class MemberDAO {
 
 				ReturnBean returnBean =
 					new ReturnBean(id, detail_id, member_id, rental_date, rental_due_date, returned_date);
-				//System.out.println(returnBean);
+				System.out.println(returnBean);
 				resultMember.add(returnBean); //リストに追加
 			}
 		} catch (Exception e1) {
