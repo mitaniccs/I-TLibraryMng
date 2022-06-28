@@ -32,6 +32,8 @@ public class SearchServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		System.out.println("SearchServletのdoPost入場");
+		//数字の正規表現
+		String Number = "^[0-9]${1,}";//
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
@@ -43,12 +45,28 @@ public class SearchServlet extends HttpServlet {
 		if(strMember_Id.isEmpty()) {
 			strMember_Id = "0";
 		}
-		if(strMember_Id != "[0~9]{1,}") {}//TODOここから
 
+		if(strMember_Id.matches(Number)) {
+
+		}else {
+			System.out.println("strMember_Id = " + strMember_Id);
+			request.setAttribute("non_list_err", "数字を入力してください");
+			String page = "/return/return.jsp";
+			gotoPage(request, response, page);
+			return ;
+		}
 
 		String strDetail_Id = request.getParameter("detail_Id");
 		if(strDetail_Id.isEmpty()) {
 			strDetail_Id = "0";
+		}
+		if(strDetail_Id.matches(Number)){
+
+		}else {
+			request.setAttribute("non_list_err", "数字を入力してください");
+			String page = "/return/return.jsp";
+			gotoPage(request, response, page);
+			return ;
 		}
 
 		int member_Id = Integer.parseInt(strMember_Id);
