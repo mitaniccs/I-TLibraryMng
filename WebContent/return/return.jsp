@@ -48,7 +48,8 @@
 			</c:forEach>
 		</table>
 		<form action="./ReturnServlet" method="POST">
-   			  <input type="submit" action="returnbtn" value="戻る">
+			<input type="hidden" text="returnbtn" name="action">
+   			<input type="submit" value="戻る">
 		</form>
 	</div>
 </body>

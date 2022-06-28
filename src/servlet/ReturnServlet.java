@@ -35,6 +35,7 @@ public class ReturnServlet extends HttpServlet {
 		//String action = request.getParameter("action");
 //		String url = request.getRequestURI();
 		String action = request.getParameter("action");
+		System.out.println("actionに格納された値：" + action);
 		//以下のパラメータは資料返却ボタンに遷移する際は渡されない、よってエラーに似る
 //		String strId = request.getParameter("id");
 //		String strMember_Id = request.getParameter("member_Id");
@@ -80,7 +81,7 @@ public class ReturnServlet extends HttpServlet {
 
 				//戻る画面に遷移（資料返却確認画面以外）
 			if(action.equals("returnbtn")) {
-				gotoPage(request, response, "/../../WebContent/test.jsp");
+				gotoPage(request, response, "./WebContent/test.jsp");
 			}
 
 
