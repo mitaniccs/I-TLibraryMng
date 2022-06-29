@@ -21,7 +21,4 @@ public class TitleBean {
 	public String toString() {
 		return "TitleBean [title=" + title + "]";
 	}
-
-
-
 }

@@ -2,7 +2,6 @@ package bean;
 
 public class NameBean {
 
-
 	private String name;
 
 	public NameBean(String name) {
@@ -22,7 +21,5 @@ public class NameBean {
 	public String toString() {
 		return "NameBean [name=" + name + "]";
 	}
-
-
 
 }

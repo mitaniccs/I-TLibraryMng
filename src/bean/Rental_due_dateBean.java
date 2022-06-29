@@ -11,7 +11,6 @@ public class Rental_due_dateBean {
 	}
 
 	public Rental_due_dateBean(int id, String rental_due_date) {
-		// TODO 自動生成されたコンストラクター・スタブ
 		super();
 		this.id = id;
 		this.rental_due_date = rental_due_date;
@@ -38,9 +37,4 @@ public class Rental_due_dateBean {
 	public String toString() {
 		return "Rental_due_dateBean [rental_due_date=" + rental_due_date + ", id=" + id + "]";
 	}
-
-
-
-
-
 }

@@ -159,7 +159,6 @@ public class SearchServlet extends HttpServlet {
 				gotoPage(request, response, "/Error.jsp");
 			}
 		}
-
 	}
 
 	private void gotoPage(HttpServletRequest request,

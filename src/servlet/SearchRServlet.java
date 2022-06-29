@@ -158,9 +158,8 @@ public class SearchRServlet extends HttpServlet {
 				request.setAttribute("errorMessage", "システムエラー発生。ログを確認してください！");
 				gotoPage(request, response, "/Error.jsp");
 			}
-			}
-
 		}
+	}
 
 	private void gotoPage(HttpServletRequest request,
 			HttpServletResponse response, String page) throws ServletException,

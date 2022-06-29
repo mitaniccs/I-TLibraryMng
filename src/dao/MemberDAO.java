@@ -12,11 +12,10 @@ import bean.ReturnBean;
 public class MemberDAO {
 
 	private static Connection getConnection() throws DAOException {
-		System.out.println("getConnection()メソッド入場");
+		System.out.println("MemberDAOのgetConnection()メソッド入場");
 		Connection conn = null;
 
 		try {
-			System.out.println("MemberDAOのgetConnection()メソッド入場");
 			//JDBCドライバの登録
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			//URL、ユーザー名、パスワード
@@ -24,15 +23,15 @@ public class MemberDAO {
 			final String user ="user";
 			final String password = "user";
 			conn = DriverManager.getConnection(url, user, password);
-			System.out.println(conn);
-			System.out.println("MemberDAOのgetConnection()メソッド退場");
 		} catch (Exception e) {
 			throw new DAOException("接続に失敗しました。");
 		}
-		System.out.println("getConnection()メソッド退場");
+		System.out.println("MemberDAOのgetConnection()メソッド退場");
 		return conn;
 	}
 
+	//rentalTbl -> bookTblをジョイン。返却したいrentalTbl上のデータを選択したとき
+	//同List内にある会員Idを参照してmemberTblから名前を取得するため、値を受け取っている
 	public String findName (String member_Id) throws DAOException {
 		System.out.println("findName()メソッド入場");
 		Connection conn = null;
@@ -89,16 +88,8 @@ public class MemberDAO {
 				String rental_date = rs.getString("rental_date");
 				String rental_due_date = rs.getString("rental_due_date");
 
-
 				ReturnBean returnBean =
 						new ReturnBean(id, detail_id, member_id, rental_date, rental_due_date);
-				//以下２行確認用
-//				ReturnBean returnBean =
-//						new ReturnBean(detail_Id, member_Id);
-
-				//System.out.println(returnBean);
-
-				//re
 
 				searchMemList.add(returnBean); //リストに追加
 			}
@@ -141,7 +132,6 @@ public class MemberDAO {
 		ResultSet rs = null; //結果セット
 		try {
 			conn = getConnection(); //db接続Connectionリターン
-
 			String sql = "select * from rentalTbl where member_id = ?" ;  //order by rental_due_date DESC;
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, Member_Id);
@@ -156,7 +146,6 @@ public class MemberDAO {
 
 				ReturnBean returnBean =
 					new ReturnBean(id, detail_id, member_id, rental_date, rental_due_date, returned_date);
-				System.out.println(returnBean);
 				resultMember.add(returnBean); //リストに追加
 			}
 		} catch (Exception e1) {
@@ -177,6 +166,7 @@ public class MemberDAO {
 				e3.printStackTrace();
 				throw new DAOException("PreparedStatementオブジェクトの開放に失敗しました。");
 			}
+
 			try {
 				if(conn != null) conn.close();
 			} catch (Exception e4) {

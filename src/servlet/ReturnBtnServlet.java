@@ -37,21 +37,14 @@ public class ReturnBtnServlet extends HttpServlet {
 		System.out.println("ReturnBtnServlet　：　action = " + action);
 
 		String strId = request.getParameter("id");
-		//System.out.println("ReturnBtnServlet　：　Name準備");
 
 		String strMember_Id = request.getParameter("member_Id");
-		//System.out.println("ReturnBtnServlet　：　title準備");
 
 		String strDetail_Id = request.getParameter("detail_Id");
-		//System.out.println("ReturnBtnServlet　：　date準備");
 
 		int id = Integer.parseInt(strId);
-		//System.out.println("ReturnBtnServlet　：　Name準備完了");
 		int member_Id = Integer.parseInt(strMember_Id);
-		//System.out.println("ReturnBtnServlet　：　title準備完了");
 		int detail_Id = Integer.parseInt(strDetail_Id);
-		//System.out.println("ReturnBtnServlet　：　date準備完了");
-
 
 		try {
 			if(action.equals("confirm"))
@@ -79,7 +72,6 @@ public class ReturnBtnServlet extends HttpServlet {
 			if(action.equals("done"))
 			{
 				System.out.println("done入場");
-				//int id = Integer.parseInt(strId1);
 				//現在の日付をtodaysDateに格納
 		        LocalDate todaysDate = LocalDate.now();
 		        //todaysDateをStringがたに変更
@@ -101,7 +93,6 @@ public class ReturnBtnServlet extends HttpServlet {
 				return;
 			}
 
-
 		} catch (DAOException e) {
 			request.setAttribute("errorMessage", "エラー発生");
 			gotoPage(request, response, "/login.jsp");
@@ -120,7 +111,6 @@ public class ReturnBtnServlet extends HttpServlet {
 					gotoPage(request, response, "/Error.jsp");
 				}
 		}
-			System.out.println("try終わったよ");
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

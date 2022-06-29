@@ -17,11 +17,10 @@ public class ReturnBean {
 	private String returned_date;
 
 	private String name;
-//コンストラクターー－－－－－－－－－－－－－－－－－－－－－
+	//コンストラクターー－－－－－－－－－－－－－－－－－－－－－
 	public ReturnBean() {
 		super();
 	}
-
 
 	public ReturnBean(int detail_Id, int member_Id, String rental_date, String rental_due_date) {
 		// TODO 自動生成されたコンストラクター・スタブ
@@ -31,16 +30,13 @@ public class ReturnBean {
 		this.rental_due_date = rental_due_date;
 	}
 
-
 	public ReturnBean(int id, int detail_Id, int member_Id, String rental_date, String rental_due_date) {
-		// TODO 自動生成されたコンストラクター・スタブ
 		this.id = id;
 		this.detail_Id = detail_Id;
 		this.member_Id = member_Id;
 		this.rental_date = rental_date;
 		this.rental_due_date = rental_due_date;
 	}
-
 
 	public ReturnBean(int id, int detail_Id, int member_Id, String rental_date, String rental_due_date,
 			String returned_date) {
@@ -53,11 +49,9 @@ public class ReturnBean {
 		this.returned_date = returned_date;
 	}
 
-
 	public ReturnBean(String name) {
 		this.name =name;
 	}
-
 
 	//ゲッター雪駄ーー－－－－－－－－－－－－－－－－－－－－－－－－－
 	public int getId() {
@@ -116,17 +110,12 @@ public class ReturnBean {
 		this.name = name;
 	}
 
-
 	@Override
 	public String toString() {
 		return "ReturnBean [id=" + id + ", detail_Id=" + detail_Id + ", member_Id=" + member_Id + ", rental_date="
 				+ rental_date + ", rental_due_date=" + rental_due_date + ", returned_date=" + returned_date + ", name="
 				+ name + "]";
 	}
-
-
-
-
 }
 
 

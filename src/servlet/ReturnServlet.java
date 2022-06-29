@@ -26,31 +26,19 @@ public class ReturnServlet extends HttpServlet {
 		//	文字化け対策
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-
 		//	セッションの取得
 		HttpSession session = request.getSession(false);
-
 		//	今後複数回使うオブジェクトの宣言/初期化
 		Connection con = null;
-		//String action = request.getParameter("action");
-//		String url = request.getRequestURI();
 		String action = request.getParameter("action");
-		System.out.println("actionに格納された値：" + action);
-		//以下のパラメータは資料返却ボタンに遷移する際は渡されない、よってエラーに似る
+//以下のパラメータは資料返却ボタンに遷移する際は渡されない、よってエラーに似る
 //		String strId = request.getParameter("id");
 //		String strMember_Id = request.getParameter("member_Id");
 //		String strDetail_Id = request.getParameter("detail_Id");
 //		int id = Integer.parseInt(strId);
 //		int member_Id = Integer.parseInt(strMember_Id);
 //		int detail_Id = Integer.parseInt(strDetail_Id);
-
-
-//		MemberBean memberBean = (MemberBean) session.getAttribute("memberBean");
-//		System.out.println("ReturnServletでのmemberBean: " + memberBean);
-
 		try {
-			System.out.println("tryに入ったよ");
-			//ReturnDAO returnDAO = new ReturnDAO();
 			if(action.equals("returns"))//
 			{
 				System.out.println("returns入場");
@@ -119,7 +107,6 @@ public class ReturnServlet extends HttpServlet {
 			System.out.println("try終わったよ");
 		}
 
-
 		protected void doGet(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException {
 			doPost(request, response);
@@ -131,5 +118,4 @@ public class ReturnServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
 		}
-
 	}
