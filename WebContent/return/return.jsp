@@ -53,6 +53,7 @@
 		</table>
 		<form action="./ReturnServlet" method="POST">
 			<input type="hidden" value="returnbtn" name="action">
+
    			<input type="submit" value="戻る">
 		</form>
 	</div>

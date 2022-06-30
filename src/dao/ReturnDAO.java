@@ -47,7 +47,8 @@ public class ReturnDAO {
 			conn = getConnection(); //db接続Connectionリターン
 			//returned_date部分がnull以外のモノだけ表示するため
 			String sql ="select id, detail_id, member_id, rental_date, rental_due_date "
-					+ "from rentalTbl where returned_date is null";
+					+ "from rentalTbl where "
+					+ " is null";
 			pstmt = conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			while(rs.next())

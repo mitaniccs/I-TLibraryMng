@@ -140,7 +140,6 @@ public class SearchRServlet extends HttpServlet {
 				return;
 			}
 
-
 		} catch (DAOException e) {
 			request.setAttribute("errorMessage", "エラー発生");
 			gotoPage(request, response, "/login.jsp");
