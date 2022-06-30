@@ -20,6 +20,7 @@
 		<input type="submit" name="action" value="戻る">-->
 		<!-- <a href="/I-TLibraryMng/ReturnBtnServlet?action=done&id=${rental_due_date.id}&member_Id=0&detail_Id=0">返却</a>
 		 -->
+		 <div style="display:inline-flex">
 		<form action="./ReturnBtnServlet" method="POST">
 			<input type="hidden" value="done" name="action">
 			<input type="hidden" value="${rental_due_date.id}" name="id">
@@ -31,6 +32,7 @@
 			<input type="hidden" value="returnbtnconfirm" name="action">
    			<input type="submit" value="戻る">
 		</form>
+		</div>
 	</div>
 </table>
 </body>
